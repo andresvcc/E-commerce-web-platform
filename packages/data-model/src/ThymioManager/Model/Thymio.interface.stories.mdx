@@ -1,0 +1,234 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs';
+import { UMLWrapper, ClassStorie, StoryClass, EventStorie, CodeStorie } from 'helpers';
+
+<Meta 
+  title="Domain/Thymio/Models/Types" 
+/>
+
+# Thymio models
+
+Thymio is a Entity that provides functionality for interacting with Thymio devices. It includes types, interfaces, and constants to define Thymio types, connection modes, and status. The library also provides an `Observable` class from the `helpers` library for managing asynchronous updates. 
+
+This documentation provides detailed information about the types, interfaces, methods, and dependencies of the Thymio Entity.
+
+<br /><br />
+
+## Class Diagram
+
+<UMLWrapper 
+  height={'100%'}
+  width={'100vh'}
+  model={`
+    abstract class Observable< T >{
+      + state: T
+      + constructor(initialValue: T)
+      + set(nextState: T): void
+    }
+    enum Activity {
+      executing
+      updating
+      receiving
+      stoped
+      initialising
+    }
+    abstract class Code {
+        +value : string
+    }
+    abstract class ThymioStatus {
+      +updateAt : Date
+      +activity : Activity
+      +stack : Array<Code>
+    }
+    abstract class ConnectionParams {
+      + topic?: string
+      + host?: string
+      + token?: string
+      + path?: string
+      + address?: string
+      + channel?: string
+    }
+    abstract class ThymioPorts {
+      + [key in ConnectionModes]?: ConnectionParams
+    }
+    interface Thymio {
+      - uuid: string
+      - type: ThymioType = 'thymio2'
+      - status: Observable<ThymioStatus>
+      - connectionModes: Observable<ThymioPorts>
+      + subscribe(args: any): void
+      + execute(code: Code): void
+      + stop(): void
+      + clearStack(): void
+      + setConnectionMode(mode: ConnectionModes, params: ConnectionParams): void
+      + getConnectionModes(): ThymioPorts
+      + connectToMqttBroker(host: string, token: string): void
+      + connectToWebsocket(host: string, token: string): void
+    }
+    Activity <-- ThymioStatus
+    Code <-- ThymioStatus
+    Observable <-- Thymio
+    ThymioStatus <-- Thymio
+    ThymioPorts <-- Thymio
+    ThymioPorts --> ConnectionParams
+  `}
+/>
+
+<br /><br /><br /><br />
+
+## Example Instantiation
+
+### Injection mode
+<CodeStorie>
+{`
+  @inject({ key: 'Thymio', predicate: ['thymio3'] }) thymio?: Thymio
+`}
+</CodeStorie>
+
+[if you don't know how the dependency injection system works, here is a detailed explanation.](/docs/domain-hierarchical-dependency-injection-and-c4-modeling--page)
+
+1. `@inject`: This is a decorator used to mark a constructor parameter for dependency injection.
+
+2. `{ key: 'Thymio', predicate: ['thymio3'] }`: The object passed as an argument to the `@inject` decorator provides configuration details for the injection. 
+
+   - `key: 'Thymio'` indicates the key or role of the component being injected, which in this case is `'Thymio'`. It specifies that the injection is for the `Thymio` component.
+   
+   - `predicate: ['thymio3']` is an optional attribute specifying the predicate or condition for selecting the appropriate implementation of the component. In this case, it indicates that the injection should target the implementation of `Thymio` with the predicate `'thymio3'`.
+
+3. `thymio?: Thymio`: This is the constructor parameter being marked for injection. The `thymio` parameter is of type `Thymio` and is optional (`?`), meaning it may not always be provided during injection.
+
+Putting it all together, the expression `@inject({ key: 'Thymio', predicate: ['thymio3'] }) thymio?: Thymio` is used to mark the `thymio` parameter for dependency injection. It specifies that the injection should target the `Thymio` component with the predicate `'thymio3'`. As a result, when an instance of the containing class is created and the dependency injection is performed, the appropriate implementation of `Thymio` satisfying the given predicate will be injected into the `thymio` parameter.
+
+<br />
+
+### Factory mode
+<CodeStorie>
+{`
+  const thymio = Container.factoryFromInjectable<Thymio>('STORE', 'Thymio Store', ['thymio3], '1234');
+`}
+</CodeStorie>
+
+1. `Container`: Refers to the container object that manages dependency injection and component instances.
+
+2. `factoryFromInjectable`: A method provided by the `Container` object. It creates a factory function for instantiating a component based on its injectable definition.
+
+3. `<Thymio>`: Specifies the type parameter for the component that will be instantiated, which is `Thymio`.
+
+4. `'STORE'`: Represents the role of the component, indicating that it is a store.
+
+5. `'Thymio Store'`: Represents the name of the component, specifically the Thymio store.
+
+6. `['thymio3']`: An array of strings that serves as a predicate, indicating the specific use case or type of Thymio robot that will be used. In this case, `'thymio3'` is the predicate for selecting the appropriate implementation of the Thymio component.
+
+7. `'1234'`: An optional parameter representing the Universally Unique Identifier (UUID) of the Thymio robot. It is used as an additional argument to the component's constructor during instantiation.
+
+the expression `const thymio = Container.factoryFromInjectable<Thymio>('STORE', 'Thymio Store', ['thymio3'], '1234');` creates a factory function for instantiating a `Thymio` component, specifically a Thymio store. The use case of the Thymio robot is specified as `'thymio3'`, and the UUID `'1234'` is provided as an additional argument to the constructor.
+
+Using the resulting factory function, `thymio` can be invoked to create a new instance of the `Thymio` component, representing a Thymio robot store that corresponds to the specified use case and UUID.
+
+<br />
+
+## Example Usage
+
+<CodeStorie>
+{`
+  thymio.execute(new Code('print("Hello, Thymio!")'));
+  thymio.stop();
+  thymio.clearStack();
+  thymio.setConnectionMode('mqtt', { host: 'example.com', token: 'my-token' });
+  const connectionModes: ThymioPorts = thymio.getConnectionModes();
+`}
+</CodeStorie>
+
+<br />
+
+## Types
+
+### ThymioType
+
+The `ThymioType` type represents the available types of Thymio devices.
+
+| Type              | Description                  |
+| ----------------- | ---------------------------- |
+| `'thymio2'`       | Represents Thymio 2 devices. |
+| `'thymio3'`       | Represents Thymio 3 devices. |
+| `'thymioExtension'` | Represents Thymio Extensions. |
+
+### ConnectionModes
+
+The `ConnectionModes` type represents the available connection modes for Thymio devices.
+
+| Type              | Description                            |
+| ----------------- | -------------------------------------- |
+| `'mqtt'`          | Represents the MQTT connection mode.    |
+| `'websocket'`     | Represents the WebSocket connection mode. |
+| `'bluetooth'`     | Represents the Bluetooth connection mode. |
+| `'usb'`           | Represents the USB connection mode.     |
+| `'dongle'`        | Represents the Dongle connection mode.  |
+
+### ConnectionParams
+
+The `ConnectionParams` type represents the parameters for establishing a connection with a Thymio device.
+
+| Property        | Type     | Description                          |
+| --------------- | -------- | ------------------------------------ |
+| `topic`         | `string` | The MQTT topic for the connection.    |
+| `host`          | `string` | The host address for the connection.  |
+| `token`         | `string` | The token for authentication.         |
+| `path`          | `string` | The path for the connection.          |
+| `address`       | `string` | The address for the connection.       |
+| `channel`       | `string` | The channel for the connection.       |
+
+### ThymioPorts
+
+The `ThymioPorts` type represents the available connection ports for different connection modes of the Thymio device.
+
+| Property         | Type                            | Description                       |
+| ---------------- | ------------------------------- | --------------------------------- |
+| `ConnectionModes` | `ConnectionParams` or `undefined` | The connection parameters for the corresponding connection mode. |
+
+### ThymioStatus
+
+The `ThymioStatus` type represents the status of a Thymio device.
+
+| Property    | Type           | Description                                                  |
+| ----------- | -------------- | ------------------------------------------------------------ |
+| `updateAt`  | `Date`         | The timestamp indicating when the status was last updated.   |
+| `activity`  | `string`       | The current activity of the Thymio device. Possible values are `'executing'`, `'updating'`, `'sending'`, `'receiving'`, `'stoped'`, and `'initialising'`. |
+| `stack`     | `Code[]`       | An array of codes in the stack of the Thymio device.          |
+
+<br />
+
+<div>
+  <iframe style={{ width: '100%', height: '70vh'}} src="https://stately.ai/viz/embed/c31bcf3c-7c9d-46ae-a201-b7deda859a4b?mode=viz&panel=code&showOriginalLink=1&readOnly=1&pan=1&zoom=1&controls=1" sandbox="allow-same-origin allow-scripts"></iframe>
+</div>
+
+<br /><br />
+
+## Interfaces
+
+### Thymio
+
+The `Thymio` interface represents a Thymio device.
+
+| Property             | Type                         | Description                                                                                                         |
+| -------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `uuid`               | `string`                     | The UUID of the Thymio device.                                                                                      |
+| `type`               | `ThymioType`                 | The type of the Thymio device.                                                                                      |
+| `status`             | `Observable<ThymioStatus>`    | An observable representing the status of the Thymio device.                                                         |
+| `connectionModes`    | `Observable<ThymioPorts>`     | An observable representing the available connection modes for the Thymio device.                                    |
+| `subscribe`          | `(args: any) => void`        | Subscribes to the status of the Thymio device, providing a callback function to handle updates.                    |
+| `execute`            | `(code: Code) => void`       | Sends a message to the Thymio device for the execution of a code and saves this code in the device's code stack.    |
+| `stop`               | `() => void`                 | Stops the execution of the code on the Thymio device.                                                                |
+| `clearStack`         | `() => void`                 | Clears the code stack of the Thymio device.                                                                         |
+| `setConnectionMode`  | `(mode: ConnectionModes, params: ConnectionParams) => void` | Sets a new mode of connection for the Thymio device or updates the parameters of an existing mode of connection. |
+| `getConnectionModes` | `() => ThymioPorts`          | Returns the available connection modes for the Thymio device.                                                      |
+| `connectToMqttBroker`| `(host: string, token: string) => void` | Connects the Thymio device to an MQTT broker.                                                                     |
+| `connectToWebsocket` | `(host: string, token: string) => void` | Connects the Thymio device to a WebSocket server.                                                                 |
+
+<br /><br />
+
+## Dependencies
+
+The Thymio Model has the following dependencies:
+
+- `Observable` from the `helpers` library.

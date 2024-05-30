@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests Photo component test Photo rendering 1`] = `
+<div
+  className="sc-gEvEer puYPP"
+>
+  <img
+    className="sc-aXZVg cwsYjk"
+    src={{}}
+  />
+  <h5>
+    logo-mobsya
+  </h5>
+</div>
+`;

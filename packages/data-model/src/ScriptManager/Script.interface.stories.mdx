@@ -1,0 +1,79 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs';
+import { UMLWrapper, ClassStorie, StoryClass } from 'helpers';
+import file from './types.ts'
+
+<Meta 
+  title="Domain/Script" 
+  component={UMLWrapper}
+  argTypes={{
+    disabled: {
+      control: 'boolean',
+      description: 'If true, the component is disabled.',
+      defaultValue: false,
+      table: { defaultValue: { summary: false } },
+    },
+  }}
+/>
+
+## [`Interface`](https://www.typescriptlang.org/docs/handbook/interfaces.html) Script
+
+export const Template = (args) => <div {...args} />
+
+<Story 
+  name="Script" 
+  args={{}}>
+  <ClassStorie
+    type="interface"
+    name="Script"
+    uml={`
+      abstract class Observable< T >{
+        +key : string
+        +state : T
+        +set(value: T): void
+      }
+      abstract class Code{
+          +value : string
+      }
+      Observable <-- Script
+      Code <-- Script
+    `}
+    params={[
+      {
+        name: 'code',
+        type: 'Observable<Code>',
+        description: 'ici une autre description'
+      },
+      {
+        name: 'history',
+        type: 'Array<Code>',
+        description: 'ici une autre description'
+      }
+    ]}
+    methods={[
+      {
+        name: 'onChange',
+        description: 'ici la description',
+        args: [
+          {
+            name: 'callback',
+            type: '(args:any)=>void',
+            description: 'ajajakjss'
+          }
+        ]
+      },
+      {
+        name: 'send',
+        description: 'ici la description',
+        args: [
+          {
+            name: 'code',
+            type: 'Code',
+            description: 'ajajakjss'
+          }
+        ]
+      }
+    ]}
+  />
+</Story>
+
+<br /><br />

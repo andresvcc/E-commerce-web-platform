@@ -1,0 +1,149 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs';
+import { UMLWrapper, ClassStorie, StoryClass, EventStorie, CodeStorie } from 'helpers';
+
+<Meta 
+  title="Domain/Thymio/Services/ThymioController" 
+/>
+
+# ThymioController
+
+The `ThymioController` class is a service class for controlling multiple Thymio devices of various types, including Thymio2, Thymio3, and ThymioExtension. It provides methods for creating, adding, removing, and managing Thymio devices in a stack. Additionally, it allows subscribing to the status updates of individual Thymio devices or all devices in the stack. The class also supports connecting Thymio devices to MQTT brokers or WebSocket servers.
+
+## Class: ThymioController
+
+### Properties
+
+| Name          | Type        | Description                                    |
+| ------------- | ----------- | ---------------------------------------------- |
+| `thymioStack` | `Thymio[]`  | An array holding the Thymio devices in the stack. |
+
+### Methods
+
+#### `createThymio`
+
+Creates a new Thymio device of the specified type and adds it to the stack.
+
+```typescript
+createThymio(type: ThymioType, uuid: string): Thymio
+```
+
+| Parameter  | Type         | Description                                |
+| ---------- | ------------ | ------------------------------------------ |
+| `type`     | `ThymioType` | The type of the Thymio device to create.    |
+| `uuid`     | `string`     | The UUID of the Thymio device to create.    |
+
+Returns the newly created Thymio device.
+
+#### `addThymio`
+
+Adds a Thymio device to the stack.
+
+```typescript
+addThymio(thymio: Thymio): void
+```
+
+| Parameter  | Type     | Description                               |
+| ---------- | -------- | ----------------------------------------- |
+| `thymio`   | `Thymio` | The Thymio device to add to the stack.     |
+
+#### `removeThymio`
+
+Removes a Thymio device from the stack.
+
+```typescript
+removeThymio(thymio: Thymio): void
+```
+
+| Parameter  | Type     | Description                               |
+| ---------- | -------- | ----------------------------------------- |
+| `thymio`   | `Thymio` | The Thymio device to remove from the stack.|
+
+#### `findThymio`
+
+Finds a Thymio device in the stack by its UUID.
+
+```typescript
+findThymio(uuid: string): Thymio | undefined
+```
+
+| Parameter  | Type     | Description                                |
+| ---------- | -------- | ------------------------------------------ |
+| `uuid`     | `string` | The UUID of the Thymio device to find.      |
+
+Returns the Thymio device if found, or `undefined` if not found.
+
+#### `subscribeToThymio`
+
+Subscribes to the status updates of a Thymio device by its UUID.
+
+```typescript
+subscribeToThymio(uuid: string, fun: (args: any) => void): void
+```
+
+| Parameter  | Type                | Description                                |
+| ---------- | ------------------- | ------------------------------------------ |
+| `uuid`     | `string`            | The UUID of the Thymio device to subscribe. |
+| `fun`      | `(args: any) => void`| The callback function for handling status updates. |
+
+#### `subscribeToAllThymio`
+
+Subscribes to the status updates of all Thymio devices in the stack.
+
+```typescript
+subscribeToAllThymio(fun: (args: any) => void): void
+```
+
+| Parameter  | Type                | Description                                |
+| ---------- | ------------------- | ------------------------------------------ |
+| `fun`      | `(args: any) => void`| The callback function for handling status updates. |
+
+#### `connectThymio
+
+ToSever`
+
+Connects a Thymio device to a server (MQTT broker or WebSocket) by its UUID.
+
+```typescript
+connectThymioToSever(type: ConnectionModes, uuid: string, host: string, token: string): void
+```
+
+| Parameter  | Type                 | Description                                |
+| ---------- | -------------------- | ------------------------------------------ |
+| `type`     | `ConnectionModes`    | The connection mode (e.g., MQTT, WebSocket).|
+| `uuid`     | `string`             | The UUID of the Thymio device to connect.   |
+| `host`     | `string`             | The server host address.                    |
+| `token`    | `string`             | The authentication token for the server.    |
+
+#### `connectAllThymioToSever`
+
+Connects all Thymio devices in the stack to a server (MQTT broker or WebSocket).
+
+```typescript
+connectAllThymioToSever(type: ConnectionModes, host: string, token: string): void
+```
+
+| Parameter  | Type                 | Description                                |
+| ---------- | -------------------- | ------------------------------------------ |
+| `type`     | `ConnectionModes`    | The connection mode (e.g., MQTT, WebSocket).|
+| `host`     | `string`             | The server host address.                    |
+| `token`    | `string`             | The authentication token for the server.    |
+
+## Dependencies
+
+The `ThymioController` class depends on the following external modules:
+
+- `helpers`: A helper library providing utilities for creating observables and managing dependencies.
+
+The class also relies on the following types and interfaces:
+
+- `ThymioStatus`: Represents the status of a Thymio device, including the timestamp of the last update, the current activity, and the stack of code.
+- `Thymio`: Represents a Thymio device with properties and methods for managing its status and connections.
+- `ThymioType`: Represents the supported types of Thymio devices (e.g., Thymio2, Thymio3, ThymioExtension).
+- `ConnectionModes`: Represents the supported connection modes for Thymio devices (e.g., MQTT, WebSocket).
+- `ConnectionParams`: Represents the connection parameters for a Thymio device, such as the server host and authentication token.
+- `ThymioPorts`: Represents the available ports for each connection mode supported by Thymio devices.
+
+Additionally, the class defines the following constants:
+
+- `aceptedThymioTypes`: An array of accepted Thymio types, including Thymio2, Thymio3, and ThymioExtension.
+- `acceptedThymioConnectionModes`: An array of accepted connection modes for Thymio devices, including USB, Dongle, MQTT, Bluetooth, and WebSocket.

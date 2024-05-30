@@ -1,0 +1,127 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+<Meta 
+  title="Development/Journal"  
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: { 
+      canvas: { hidden: true } 
+     },
+  }}
+/>
+
+Journal du processus de développement
+=====
+
+<br /><br />
+
+Thymio est un robot éducatif open source créé à l'Ecole Polytechnique Fédérale de Lausanne en collaboration avec la Haute Ecole d'art et de design de Lausanne (ECAL) en 2011. L'objectif du projet Thymio est de rendre la découverte de l'informatique et de la technologie accessible à un large public, notamment aux enfants. ( https://fr.wikipedia.org/wiki/Thymio )
+
+Thymio est sous la responsabilité de l'association Mobsya, qui dispose d'une large communauté et d'une base des promoteurs propre à elle, mais au fil des années le robot Thymio est devenu moins compétitif qu'il ne l'était il y a 10 ans. C'est pourquoi, après plusieurs réunions, les responsables de l'association ont pris la décision de lancer le développement de Thymio 3 dans le but de donner au robot un nouveau design et de nouvelles fonctionnalités pour le rendre plus compétitif.
+
+Le projet consiste à optimiser le système existant mais aussi de construire un nouveau système d'information qui s'articule autour de Thymio 3 mais supporte également thymio 2.
+
+Dans le cadre de ce projet, nous nous intéressons à l'amélioration du robot Thymio, nous visons deux angles généraux, l'expérience utilisateur et la qualité de la communication. 
+
+
+<br />
+
+### (2022-04-02) Début du développement
+
+> Nous allons démarrer un nouveau projet avec un dépôt, faire des choix stratégiques sur les technologies à utiliser. [[Rapport](https://docs.google.com/document/d/17OBOlpsR8zjzrvmtCQTcaFGkMNNbFqDTOwaSRsTNCsg/edit#)]
+
+##### Decisions adopted:
+* L'utilisation de frameworks est autorisée
+* L'utilisation de bibliothèques open source créées par des tiers est autorisée.
+* La nouvelle solution logicielle doit être 100% basée sur le web.
+* La nouvelle solution logicielle sera disponible sur Android et iOS sous forme de webviews.
+
+<br />
+
+### (2022-04-03) Concentrer les efforts sur la compatibilité du thymio 2.
+
+> Il a été décidé par notre CEO de concentrer les efforts sur la compatibilité du nouveau système avec thymio 2.
+
+<br />
+
+### (2022-04-03) Liste des exigences
+
+> Dans le cadre du développement du thymio 3 et de la nouvelle suite logicielle, un rapport sur la liste des exigences fonctionnelles et non fonctionnelles a été établi par la responsable du produit. [[Rapport](/docs/mobsya-documents-liste-des-exigences--page)]
+
+##### Decisions adopted:
+* La priorité doit être donnée à la thymio 3 et plus tard à la compatibilité avec la thymio 2.
+
+<br />
+
+### (2022-04-17) Choix relatif à l'utilisation de l'inversion et injection de dépendances
+
+> Dans le cadre de ce projet, l'utilisation de l'inversion et l'injection de dépendancesest est autorisée [[Rapport](/docs/mobsya-justification-inversion-et-injection-de-dépendances--page)]
+
+<br />
+
+### (2022-04-17) Choix de l'outil de modélisation de l'architecture
+
+> Dans le cadre de ce projet, Il a été décidé d'utiliser le modèle C4 comme outil de modélisation architecturale. [[Rapport](/docs/mobsya-justification-modélisation-de-l-architecture--page)]
+
+<br />
+
+### (2022-05-05) Répartition des rôles dans l'équipe
+
+>  Lors d'une réunion de pilotage, des rôles ont été attribués et des responsabilités ont été définies.
+
+##### Decisions adopted:
+* S'il n'y a qu'un seul développeur dans l'équipe, il doit assumer tous les rôles, y compris celui de [Tech Leader](https://en.m.wikipedia.org/wiki/Lead_programmer).
+* [Fanny Riedo](https://github.com/riedo) reste [Product Owner](https://scaledagileframework.com/product-owner/#:~:text=The%20Product%20Owner%20(PO)%20is,with%20customer%20and%20stakeholder%20needs.)(PO)
+* [Andres Caballero](https://github.com/andresvcc) a été nommé [Tech Leader](https://en.m.wikipedia.org/wiki/Lead_programmer) et développeur responsable
+
+<br />
+
+### (2022-05-17) Règles générales applicables aux projets
+
+> Dans le cadre du développement de thymio 3 et de la nouvelle suite logicielle, un cadre de collaboration agile est proposé. [[Rapport](https://github.com/Mobsya/thymio-platform/wiki/Règles-générales-applicables-aux-projets)]
+
+<br />
+
+### (2022-05-17) [Choix du framework / bibliothèque](https://github.com/Mobsya/thymio-platform/issues/6)
+
+> Il a été décidé par l'equipe d'utiliser React comme cadre de développement. [[Rapport](/docs/mobsya-justification-framework--page)]
+
+##### Breaking Changes
+*  Les mécanismes des tests d'unité et d'intégration ont été ajustés.
+*  Une version de démonstration avec react a été ajoutée. 
+*  React devrait être utilisé dans tous les projets web, mais en aucun cas il ne faut faire des couplages forts entre les composants, afin que nous puissions facilement les changer dans le futur.
+
+<br />
+
+### (2022-05-17) Choix d'une bibliothèque UX
+
+> Il a été décidé par l'equipe d'utiliser Styled-Components comme cadre de gestion des styles. [[Rapport](/docs/mobsya-justification-bibliotequeux--page)]
+
+##### Breaking Changes
+*  Les mécanismes des tests d'unité et d'intégration ont été ajustés en fonctions des styled components.
+*  La version de démonstration react a été ajustée. 
+*  Styled components devrait être utilisé dans tous les components visuelles reusilisables dans `ui-ux`, mais en aucun cas a directement à l'interior d'une page web.
+
+<br />
+
+### (2022-05-02) Concentrer les efforts sur le développement de la nouvelle suite logicielle du Thymio 3.
+
+> Il a été décidé par notre CEO de mettre de coté la compatibilité sur le thymio 2 et concentrer les efforts sur le développement de la nouvelle suite logiciel prevu pour le thymio 3.
+
+<br />
+
+### (2022-05-05) Choix du fournisseur de services d'hébergement
+
+> Il a été décidé par notre CEO de prendre un fournisseur de services d'hébergement MQTT non Managée [[Rapport](/docs/mobsya-justification-fournisseur-de-services-d-hébergement--page)]
+
+<br />
+
+### (2022-06-07) Presentation de l'architecture de software de la nouvelle suite logicielle du thymio 3
+
+> l'équipe de développement présente sa proposition d'architecture qui évolue encore selon le principe du développement incrémental, car il reste encore des éléments à ajuster au cours du processus. [[Rapport](/docs/mobsya-documents-architecture--page)]
+
+<br />
+
+### (2022-06-07) Présentation du document modes de connexion prevu pour le thymio 3
+
+> l'équipe de développement présente une première version formelle et détaillée de la façon dont le processus de connexion et de couplage de thymio 3 fonctionnera, en tenant compte du mode de connexion MQTT. [[Rapport](/docs/mobsya-documents-thymio-connections-modes--page)]

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thymio Suite V3</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/javascript">
+      const $info = document.querySelector('#info');
+
+      if (window.self === window.top) {
+        // rendered as top-level document, show isolated message
+        $info.innerHTML = `
+          <code>window.crossOriginIsolated</code>: ${window.crossOriginIsolated}
+        `;
+      } else {
+        // rendered inside an iframe, render the link to open in a new window
+        $info.innerHTML = `<a href="" target="_blank">Click here</a> to open in new window.`;
+      }
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

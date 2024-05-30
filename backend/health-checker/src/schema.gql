@@ -1,0 +1,15 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Users {
+  """Example field (placeholder)"""
+  exampleField: Int!
+
+  """Example id field (placeholder)"""
+  id: Int!
+}
+
+type Query {
+  user: Users!
+}

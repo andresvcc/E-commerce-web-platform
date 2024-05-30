@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests Spinners component test Spinner advanced rendering 1`] = `
+<div
+  className="sc-kpDqfm bPKuBn"
+>
+  <div
+    className="sc-kAyceB jbuvBh"
+  >
+    <div
+      className="sc-dcJsrY lgDyMi"
+    >
+      <div
+        className="sc-gsFSXq glzXHW"
+      >
+        <svg
+          className="sc-fqkvVR WvuvS"
+          theme={
+            {
+              "bgcolor": undefined,
+              "palleteFill": [
+                "#000",
+              ],
+              "palleteFillHover": [
+                "#000",
+              ],
+              "sizeH": 50,
+              "sizeW": 50,
+            }
+          }
+          version="1.1"
+          viewBox="0 0 256 256"
+          x="0px"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          y="0px"
+        >
+          <style
+            type="text/css"
+          >
+            
+    .st0 { fill: #4B4F54 }
+  
+          </style>
+          <g
+            fill="none"
+            fillRule="evenodd"
+            id="Page-1"
+            stroke="null"
+          >
+            <path
+              className="st0"
+              d="m127.99917,170.67259c-23.3736,0 -42.30975,-19.09833 -42.30975,-42.66815c0,-23.56982 18.93615,-42.66814 42.30975,-42.66814c23.3736,0 42.31828,19.09832 42.31828,42.66814c0,23.56982 -18.94467,42.66815 -42.31828,42.66815l0,0zm119.53909,-12.49315l-19.82361,-11.53763c1.10941,-6.05881 1.84329,-12.24574 1.84329,-18.63737c0,-6.38303 -0.73389,-12.57856 -1.84329,-18.63737l19.82361,-11.53764c8.09845,-4.71058 10.86339,-15.15573 6.18692,-23.31384l-16.92221,-29.56039c-4.66786,-8.1581 -15.02773,-10.96574 -23.1176,-6.24657l-20.02843,11.64832c-9.35287,-8.02163 -19.98579,-14.5841 -31.80482,-18.8082l0,-14.48149c0,-9.42116 -7.57787,-17.06726 -16.93074,-17.06726l-33.84441,0c-9.35287,0 -16.93074,7.6461 -16.93074,17.06726l0,14.48149c-11.81902,4.22411 -22.45195,10.78657 -31.80482,18.8082l-20.02843,-11.64832c-8.08987,-4.71917 -18.44973,-1.91153 -23.11761,6.24657l-16.92221,29.56039c-4.6764,8.1581 -1.903,18.60326 6.18687,23.31384l19.82367,11.53764c-1.10942,6.05881 -1.84329,12.25433 -1.84329,18.63737c0,6.39163 0.73388,12.57857 1.84329,18.63737l-19.82367,11.53763c-8.08987,4.71059 -10.86327,15.15575 -6.18687,23.31383l16.92221,29.56041c4.66787,8.1581 15.02774,10.96574 23.11761,6.24657l20.02843,-11.64833c9.35287,8.02165 19.98579,14.59245 31.80482,18.80821l0,14.48149c0,9.42117 7.57787,17.06726 16.93074,17.06726l33.84441,0c9.35287,0 16.93074,-7.64609 16.93074,-17.06726l0,-14.48149c11.81903,-4.21576 22.45195,-10.78656 31.80482,-18.80821l20.02843,11.64833c8.08987,4.71918 18.44974,1.91153 23.1176,-6.24657l16.92221,-29.56041c4.67647,-8.15808 1.91153,-18.60324 -6.18692,-23.31383l0,0zm-119.53909,-55.77589c-14.02074,0 -25.38754,11.46915 -25.38754,25.60089c0,14.14034 11.3668,25.60089 25.38754,25.60089c14.02073,0 25.38754,-11.46056 25.38754,-25.60089c0,-14.13174 -11.36681,-25.60089 -25.38754,-25.60089l0,0z"
+              id="settings"
+              stroke="null"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`tests Spinners component test Spinner all rendering 1`] = `
+<div
+  className="sc-kpDqfm bPKuBn"
+>
+  <div
+    className="sc-imWYAI dfKSCA"
+  >
+    <div
+      className="sc-dcJsrY lgDyMi"
+    >
+      <div
+        className="sc-gsFSXq glzXHW"
+      >
+        <svg
+          className="sc-fqkvVR WvuvS"
+          style={
+            {
+              "enableBackground": "new 0 0 256 256",
+            }
+          }
+          theme={
+            {
+              "bgcolor": undefined,
+              "palleteFill": [
+                "#000",
+              ],
+              "palleteFillHover": [
+                "#000",
+              ],
+              "sizeH": 50,
+              "sizeW": 50,
+            }
+          }
+          version="1.1"
+          viewBox="0 0 256 256"
+          x="0px"
+          xmlSpace="preserve"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          y="0px"
+        >
+          <style
+            type="text/css"
+          >
+            
+	.st0{fill:#292D32, stroke:#FFFFFF}
+
+          </style>
+          <g
+            id="g310"
+          >
+            <metadata
+              id="CorelCorpID_0Corel-Layer"
+            />
+            <path
+              className="st0"
+              d="m226.46204,131.10464c-4.99315,-0.26169 -8.83066,-3.46691 -8.56897,-8.46004c-1.53049,-28.11864 -15.25386,-52.87079 -37.38498,-70.05259c-3.83752,-3.20523 -4.57446,-8.25071 -1.36923,-12.08822c3.20523,-3.83751 9.24934,-4.52213 13.13919,-2.31552c25.96861,20.38703 42.37387,51.28796 43.64267,84.39974c0.78929,4.04684 -3.4669,8.83066 -8.46005,8.56897c0,0 0,0 -0.99863,-0.05231l0,-0.00003z"
+              fill="#4b4f54"
+              id="svg_1"
+            />
+            <path
+              className="st0"
+              d="m27.32994,130.54839c0,0 -1,0 -1,0c-5,-1 -8,-5.00001 -8,-10.00001c3,-33 21,-63 47,-81c4,-3 11,-2 13,2c3,4 2,9 -2,12c-22,17 -37,41 -39,69c-1,4 -5,8.00001 -10,8.00001z"
+              fill="#4b4f54"
+              id="svg_2"
+            />
+            <path
+              className="st0"
+              d="m178.97249,227.11853c-15,7 -32,11 -49,11c-17.00002,0 -35.00002,-4 -50.00002,-12c-5,-2 -6,-8 -4,-13c2,-4 7,-6 12,-4c7,4 15,8 25,9c11,2 22.00002,2 33.00002,0c9,-1 18,-5 25,-8c5,-2 10,-1 12,4c2,5 0,11 -4,13z"
+              fill="#4b4f54"
+              id="svg_3"
+            />
+            <path
+              className="st0"
+              d="m86.37505,151.85542c-11.2346,-17.79018 -37.67307,-25.0583 -58.15611,-14.24654c-19.4589,10.27115 -25.79333,34.83807 -14.55873,52.62825c11.8259,18.7265 37.08177,24.12198 56.54067,13.85081c20.48305,-10.81175 28.00007,-33.50603 16.17418,-52.23253l-0.00001,0z"
+              fill="#4b4f54"
+              id="svg_4"
+              strokeWidth="1.13075"
+            />
+            <path
+              className="st0"
+              d="m127.12962,83.91309c23.65178,0 41.39066,-17.29881 41.39066,-38.9223c0,-20.54232 -17.73886,-36.75996 -41.39066,-36.75996c-22.46918,0 -41.39061,16.21764 -41.39061,36.75996c0,21.6235 18.92142,38.9223 41.39061,38.9223z"
+              fill="#4b4f54"
+              id="svg_5"
+              strokeWidth="1.13075"
+            />
+            <path
+              className="st0"
+              d="m169.37852,153.46991c-11.2346,17.79018 -4.30887,41.42078 16.17418,52.23251c19.45891,10.27116 44.28191,3.39879 55.51651,-14.39139c11.8259,-18.7265 5.33302,-40.88019 -14.12589,-51.15135c-20.48303,-10.81174 -45.73891,-5.41626 -57.5648,13.31023z"
+              fill="#4b4f54"
+              id="svg_6"
+              stroke="null"
+              strokeWidth="1.13075"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`tests Spinners component test Spinner default rendering 1`] = `
+<div
+  className="sc-kpDqfm bPKuBn"
+>
+  <span
+    className="sc-gEvEer hMjCXM"
+  />
+</div>
+`;
+
+exports[`tests Spinners component test Spinner dots rendering 1`] = `
+<div
+  className="sc-kpDqfm bPKuBn"
+>
+  <div
+    className="sc-dhKdcB fAWYcK"
+  >
+    <div
+      className="sc-jXbUNg mUpcT"
+      color="#000"
+      speed={1}
+    />
+    <div
+      className="sc-jXbUNg kKHmpY"
+      color="#000"
+      speed={1}
+    />
+    <div
+      className="sc-jXbUNg hSqBO"
+      color="#000"
+      speed={1}
+    />
+    <div
+      className="sc-jXbUNg kPJkRd"
+      color="#000"
+      speed={1}
+    />
+  </div>
+</div>
+`;
+
+exports[`tests Spinners component test Spinner dual-ring rendering 1`] = `
+<div
+  className="sc-kpDqfm bPKuBn"
+>
+  <div
+    className="sc-aXZVg iKXhXG"
+  />
+</div>
+`;
+
+exports[`tests Spinners component test Spinner scan rendering 1`] = `
+<div
+  className="sc-kpDqfm bPKuBn"
+>
+  <span
+    className="sc-eqUAAy jPoWYE"
+  />
+</div>
+`;

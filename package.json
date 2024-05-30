@@ -1,0 +1,53 @@
+{
+  "name": "thymio-platform",
+  "private": true,
+  "packageManager": "yarn@1.22.17",
+  "version": "1.0.0",
+  "scripts": {
+    "start:ms-user":"turbo run start:prod --filter=./backend/*",
+    "dev": "turbo run dev --parallel --no-cache --concurrency=30",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules && rm -rf docpage",
+    "build": "turbo run build --filter=./packages/helpers --force && turbo run build --filter=./packages/data-model --force && turbo run build --filter=!./front-web/* --force && turbo run build --filter=./front-web/* --force",
+    "test": "turbo run test --filter=!./backend/*",
+    "posttest": "yarn mergeTest && yarn report",
+    "mergeTest": "npx junit-merge -d packages --recursive -o documentation/documents/test-results/merged-results.xml --createDir=true && cd ./documentation/documents/ && node mdxParser.mjs",
+    "report": "npx junit-viewer --results=documentation/documents/test-results/merged-results.xml --save=documentation/documents/test-results/index.html",
+    "test:watch": "turbo run test:watch",
+    "storybook": "turbo run storybook --filter=./documentation/*",
+    "build:storybook": "turbo run build --filter=./documentation/*",
+    "commit": "cz"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "prettier": "^2.7.1",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.3.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-jest":"^27.2.1",
+    "eslint-plugin-ft-flow":"^2.0.3",
+    "commitizen": "^4.2.5",
+    "junit-merge": "^2.0.0",
+    "junit-viewer": "^4.11.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "workspaces": [
+    "front-web/*",
+    "packages/*",
+    "documentation/*",
+    "backend/*"
+  ]
+}

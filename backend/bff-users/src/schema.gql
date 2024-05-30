@@ -1,0 +1,280 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Membership {
+  """Organisation _id"""
+  _id: String!
+
+  """UserRole"""
+  role: UserRole!
+
+  """StartDate"""
+  startDate: String!
+
+  """EndDate"""
+  endDate: String
+}
+
+"""The role of users in the system"""
+enum UserRole {
+  Student
+  Teacher
+  Admin
+}
+
+type Supervisor {
+  """Supervisor _id"""
+  _id: String!
+
+  """oversightStartDate"""
+  oversightStartDate: String!
+
+  """oversightEndDate"""
+  oversightEndDate: String!
+
+  """supervisorPermissions"""
+  supervisorPermissions: [SupervisorPermissions!]!
+}
+
+"""The available permissions for a supervisor"""
+enum SupervisorPermissions {
+  Evaluate
+  AssignActivities
+  ModifyStudentData
+  CommunicateWithStudent
+  AccessAcademicReports
+  ManageAttendance
+  PlanCurriculum
+  ViewProgressReports
+  CustomizeLearningPaths
+}
+
+type User {
+  """Id"""
+  _id: String!
+
+  """Username"""
+  username: String!
+
+  """Email"""
+  email: String
+
+  """First name"""
+  firstName: String
+
+  """Last name"""
+  lastName: String
+
+  """Date of birth"""
+  dateOfBirth: String
+
+  """User Category"""
+  status: String!
+
+  """Supervisor"""
+  supervisors: [Supervisor!]
+
+  """User rights"""
+  rights: [UserRights!]!
+
+  """Membership"""
+  memberships: [Membership!]!
+}
+
+"""The rights of users in the system"""
+enum UserRights {
+  Admin
+  User
+  Visitor
+  Developer
+}
+
+type Token {
+  """Id"""
+  uuid: String!
+
+  """createAt"""
+  createAt: String
+
+  """Value"""
+  value: String!
+
+  """Value"""
+  type: TokenTypes
+}
+
+"""The status of users in the system"""
+enum TokenTypes {
+  JWT
+  HASH
+}
+
+type Organisation {
+  """Id"""
+  _id: String!
+
+  """Name"""
+  name: String!
+
+  """Address"""
+  address: String
+
+  """Telephone"""
+  telephone: String
+
+  """Logo"""
+  logo: String
+
+  """Status"""
+  status: String!
+}
+
+type Query {
+  Users(
+    _id: Criteria
+    username: Criteria
+    email: Criteria
+    firstName: Criteria
+    lastName: Criteria
+    dateOfBirth: Criteria
+    status: Criteria
+
+    """User rights"""
+    rights: Criteria
+
+    """page"""
+    page: Int!
+
+    """limit"""
+    limit: Int!
+  ): [User!]!
+  Organisations: [Organisation!]!
+}
+
+input Criteria {
+  exact: stringOrNumber
+  between: [Int!]
+  includes: String
+  notIncludes: [String!]
+  startsWith: String
+  endsWith: String
+  hasAttribute: String
+  notHasAttribute: String
+  not: String
+}
+
+"""Any value."""
+scalar stringOrNumber
+
+type Mutation {
+  auth(username: String!, password: String!): Token!
+  createUser(input: UserInput!): User!
+  updateUser(input: UserUpdate!): User!
+  deleteUser(input: String!): User!
+  createOrganisation(input: OrganisationInput!): Organisation!
+  updateOrganisation(input: OrganisationUpdate!): Organisation!
+  deleteOrganisation(input: String!): Organisation!
+}
+
+input UserInput {
+  """User name"""
+  username: String!
+
+  """Email"""
+  email: String
+
+  """HashPassword"""
+  password: String
+
+  """First name"""
+  firstName: String
+
+  """Last name"""
+  lastName: String
+
+  """Date of birth"""
+  dateOfBirth: String
+
+  """Visitor"""
+  visitor: Boolean
+
+  """Supervisor"""
+  supervisors: [SupervisorInput!]
+
+  """Membership"""
+  memberships: [MembershipInput!]!
+}
+
+input SupervisorInput {
+  """Supervisor _id"""
+  _id: String!
+
+  """oversightStartDate"""
+  oversightStartDate: String!
+
+  """oversightEndDate"""
+  oversightEndDate: String!
+
+  """supervisorPermissions"""
+  supervisorPermissions: [SupervisorPermissions!]!
+}
+
+input MembershipInput {
+  """Organisation _id"""
+  _id: String!
+
+  """UserRole"""
+  role: String!
+
+  """StartDate"""
+  startDate: String!
+
+  """EndDate"""
+  endDate: String
+}
+
+input UserUpdate {
+  """Email"""
+  email: String
+
+  """HashPassword"""
+  password: String
+
+  """First name"""
+  firstName: String
+
+  """Last name"""
+  lastName: String
+
+  """Date of birth"""
+  dateOfBirth: String
+}
+
+input OrganisationInput {
+  """Name"""
+  name: String!
+
+  """Address"""
+  address: String
+
+  """Telephone"""
+  telephone: String
+
+  """Logo"""
+  logo: String
+}
+
+input OrganisationUpdate {
+  """Name"""
+  name: String
+
+  """Address"""
+  address: String
+
+  """Telephone"""
+  telephone: String
+
+  """Logo"""
+  logo: String
+}

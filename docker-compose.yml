@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  bff-users:
+    build:
+      context: ./backend/bff-users
+      dockerfile: Dockerfile
+    image: bff-users
+    ports:
+      - 3001:3001
+    # Agrega cualquier otra configuración necesaria para el servicio bff-users
+
+  health-checker:
+    build:
+      context: ./backend/health-checker
+      dockerfile: Dockerfile
+    image: health-checker
+    ports:
+      - 3003:3003
+    # Agrega cualquier otra configuración necesaria para el servicio health-checker
+
+  ms-users:
+    build:
+      context: ./backend/ms-users
+      dockerfile: Dockerfile
+    image: ms-users
+    ports:
+      - 3002:3002

@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs';
+import { UMLWrapper, ClassStorie, StoryClass, EventStorie, CodeStorie } from 'helpers';
+
+<Meta 
+  title="Domain/Thymio/Stores/thymioStores" 
+/>
+
+# Thymio - Store Implementations for Thymio 2 and Thymio 3
+
+The `Thymio2` and `Thymio3` classes are store implementations of the `Thymio` interface for the Thymio 2 and Thymio 3 devices, respectively. They are decorated with `@Store` to indicate that they are injectable in a service. Each class represents a specific use case for the Thymio devices, providing methods to interact with the devices and manage their connection modes.
+
+#### Thymio2 Store
+
+The ``Thymio 2`` device supports only USB and dongle connections natively. However, through a gateway included in the Thymio Suite software, it is possible to connect the Thymio 2 to the MQTT bus. This gateway acts as a bridge between the Thymio 2 and the MQTT protocol, enabling communication with MQTT brokers.
+
+Due to this difference in connectivity options, the implementation of the Thymio 2 device in the Thymio library is slightly different from that of the Thymio 3 device. The Thymio 2 class in the library focuses on the USB and dongle connections, providing methods specifically designed for those connection modes. It may not have all the functionalities and features available in the Thymio 3 class.
+
+While the Thymio 2 is limited in terms of connectivity options, it still offers a range of capabilities and can be used effectively for various robotics and educational purposes. Its implementation caters to the specific requirements and capabilities of the Thymio 2 device, providing a seamless interface for interacting with the device and leveraging its unique features.
+
+#### Thymio3 Store
+
+The ``Thymio 3`` device supports all modes of connection except for the dongle. It can be connected to the MQTT bus natively, providing seamless integration with MQTT brokers. This native MQTT support simplifies the process of connecting the Thymio 3 to an MQTT network and enables easy communication and interaction with other MQTT-enabled devices.
+
+Due to its broader range of connectivity options and native MQTT support, the implementation of the Thymio 3 device in the Thymio library differs from that of the Thymio 2. The Thymio 3 class in the library encompasses all the supported connection modes, offering methods and functionalities specific to each mode. This allows users to choose the most suitable connection method for their needs and take advantage of the Thymio 3's versatility.
+
+Moreover, the Thymio 3 device boasts a wider array of functionalities compared to its predecessor, the Thymio 2. It inherits and extends many of the capabilities of the Thymio 2 while introducing new features and enhancements. This expanded functionality enables more complex and sophisticated robotic applications, making the Thymio 3 a powerful tool for educational and research purposes.
+
+In summary, the Thymio 3 device's support for multiple connection modes, native MQTT compatibility, and enriched feature set distinguish it from the Thymio 2. The Thymio 3 implementation in the Thymio library caters to these capabilities, providing users with a comprehensive interface to leverage the device's advanced functionalities while remaining compatible with the features of its predecessor.
+
+<br />
+
+## Example Usage
+
+```typescript
+import { Thymio2, Thymio3 } from 'thymio-library';
+
+// Create instances of Thymio2 and Thymio3
+const thymio2 = new Thymio2('12345');
+const thymio3 = new Thymio3('67890');
+
+// Set the connection mode for Thymio2
+thymio2.setConnectionMode('usb', { host: 'localhost', token: 'my-token' });
+
+// Set the connection mode for Thymio3
+thymio3.setConnectionMode('mqtt', { host: 'example.com', token: 'another-token' });
+
+// Get the connection modes for Thymio2 and Thymio3
+const thymio2ConnectionModes = thymio2.getConnectionModes();
+const thymio3ConnectionModes = thymio3.getConnectionModes();
+```
+
+In the example above, we create instances of `Thymio2` and `Thymio3` and set their connection modes. We also retrieve the connection modes for both devices.

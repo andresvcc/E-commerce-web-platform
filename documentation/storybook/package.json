@@ -1,0 +1,46 @@
+{
+  "name": "storybook-mobsya",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev:page": "vite",
+    "build:page": "tsc && vite build",
+    "preview": "vite preview",
+    "build": "build-storybook -s public -o docs && cp -rf docs ../../",
+    "storybook": "start-storybook -p 6006 -s ./public",
+    "clean": "rm -rf node_modules && rm -rf dist && rm -rf .turbo",
+    "lint": "eslint \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "ui-ux": "*",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-controls": "^6.3.12",
+    "@storybook/addon-ondevice-actions": "^6.0.1-alpha.6",
+    "@storybook/addon-ondevice-backgrounds": "^6.0.1-alpha.6",
+    "@storybook/addon-ondevice-controls": "^6.0.1-alpha.6",
+    "@storybook/addon-ondevice-notes": "^6.0.1-alpha.6",
+    "plantuml-encoder": "^1.4.0",
+    "react-highlight-syntax": "^1.1.0",
+    "ts-transformer-keys": "^0.4.4",
+    "xstate": "4.35.2",
+    "@xstate/react": "3.0.0",
+    "@xstate/viz": "0.3.4",
+    "@storybook/addons": "6.5.9",
+    "storybook-xstate-addon": "^2.3.7",
+    "@xstate/inspect": "0.7",
+    "@statecharts/xstate-viz": "^0.3.0",
+    "xml2js": "^0.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "tsconfig": "*",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/builder-webpack5": "^6.3.12",
+    "@storybook/manager-webpack5": "^6.3.12",
+    "@storybook/react": "^6.3.12"
+  }
+}

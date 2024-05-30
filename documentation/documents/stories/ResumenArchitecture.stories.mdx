@@ -1,0 +1,388 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import { C4ModelWrapper, Minmaps } from 'helpers';
+
+<Meta title="Mobsya/Documents/Resumen Architecture" component={C4ModelWrapper} />
+
+Aperçu de l'Architecture de Thymio Suite V3
+===========================================
+
+L'architecture de la plateforme Thymio vise à faciliter l'interaction entre les utilisateurs et les robots Thymio 2 et Thymio 3. 
+Son objectif est de permettre aux utilisateurs de programmer les robots Thymio de manière intuitive et efficace. En plus de la programmation, 
+elle offre aux utilisateurs la possibilité de suivre leurs activités et d'accéder à des parcours d'apprentissage avec des activités progressives.
+
+## Principes Fondamentaux de l'Architecture de Thymio Suite V3
+
+1. **Modularité:** L'architecture repose sur le principe de modularité, ce qui signifie que le système est divisé en composants indépendants et réutilisables. Chaque composant a une responsabilité claire et peut être développé, testé et maintenu de manière indépendante. Par exemple, nous utilisons des modules distincts pour gérer la communication avec les robots, la logique de programmation et l'interface utilisateur.
+
+<br/>
+
+2. **Scalabilité:** L'architecture est conçue pour être scalable, c'est-à-dire qu'elle peut s'adapter à différentes tailles de systèmes et volumes d'utilisateurs. Les composants et services peuvent être mis à l'échelle verticalement ou horizontalement pour gérer une charge de travail plus importante sans compromettre les performances et la réactivité du système. Par exemple, nous utilisons des clusters de serveurs pour répartir la charge lorsqu'il y a une augmentation du nombre d'utilisateurs.
+
+<br/>
+
+3. **Sécurité**: La sécurité est une considération fondamentale dans la conception de l'architecture. Nous appliquons les bonnes pratiques de sécurité à toutes les couches du système, telles que l'authentification, l'autorisation, le chiffrement des données et la protection contre les attaques courantes, pour garantir l'intégrité et la confidentialité des informations. Par exemple, nous utilisons des protocoles sécurisés tels que HTTPS pour les communications sensibles.
+
+<br/>
+
+4. **Communication Efficace:** Nous utilisons une approche adaptée au contexte, en appliquant des modèles et des protocoles de communication appropriés à chaque situation spécifique. 
+
+- Nous utilisons le modèle publish/subscribe pour faciliter une communication fluide et rapide entre les différents services et dispositifs. Cela permet aux différents composants de s'échanger des messages de manière asynchrone, assurant ainsi une réactivité optimale.
+
+- Pour garantir une coordination harmonieuse entre les BFF (Backend For Frontend) et les microservices, nous adoptons le pattern d'orchestration des requêtes, notamment avec l'utilisation de SAGAS patterns. Cela permet de gérer efficacement les transactions distribuées et de maintenir la cohérence des opérations.
+
+- En ce qui concerne la communication avec les robots Thymio, nous prenons en compte les différents protocoles et interfaces de communication qu'ils supportent. Par exemple, les robots peuvent communiquer via les protocoles Aseba, MQTT, HTTP, WebSocket, Bluetooth serial, USB serial, etc. Nous nous assurons que l'architecture est compatible avec ces protocoles pour permettre une interaction fluide entre les utilisateurs et les robots, quel que soit le mode de communication choisi.
+
+- Pour la communication entre les interfaces utilisateurs et les BFF, nous utilisons les mecanisques de GraphQL. Cela permet de formuler des requêtes flexibles pour obtenir les informations spécifiques, réduisant ainsi les surcharges de données et améliorant les performances de l'application et la maintenance de l'API publique.
+
+<br/>
+
+5. **Design Orienté Domaine:** L'architecture est basée sur l'approche de design orienté domaine, ce qui signifie qu'elle est modelée et organisée autour des concepts et règles spécifiques au domaine du système. Cela facilite la compréhension et la maintenance du système, car il reflète directement les concepts du monde réel. Par exemple, nous utilisons des entités et des agrégats pour représenter les objets du domaine.
+
+<br/>
+
+6. **Flexibilité et Adaptabilité:** L'architecture est conçue pour être flexible et adaptable au fur et à mesure que les besoins et les exigences du système évoluent. Les composants et services sont conçus de manière modulaire et découplée, ce qui permet d'ajouter, de modifier ou de remplacer des fonctionnalités sans affecter négativement le reste du système. Par exemple, nous utilisons des microservices et une architecture en conteneurs pour faciliter la gestion et l'évolution des fonctionnalités.
+
+<br/>
+
+7. **Patterns de Conception Réutilisables:** Notre architecture adopte une approche basée sur des composants et tire parti d'un monorepo centralisé pour le front-end et le back-end. Cela nous permet de maximiser la réutilisation des ressources à travers différents modules et packages. Nous organisons notre code en modules et en packages pour une meilleure modularité et réutilisabilité. Les modules regroupent des fonctionnalités generalisées, tandis que les packages encapsulent des fonctionnalités spécifiques. 
+<br/>
+
+8. **Tests et Qualité du Logiciel:** Nous suivons les bonnes pratiques de développement logiciel, telles que les tests unitaires, les tests d'intégration et les tests d'acceptation, pour garantir la qualité du logiciel et réduire les erreurs. Nous encourageons l'automatisation des tests et la revue continue du code pour maintenir un niveau élevé de qualité. Par exemple, nous utilisons des outils de test automatisés tels que JEST pour valider les fonctionnalités du système.
+
+<br/>
+
+## ***Mobile App*** 
+
+<div style={{ display: 'flex' }}>
+  <div style={{ width: '40%', paddingRight: '1rem', textAlign: 'justify' }}>
+    <p>
+      Le diagramme représente la communication des robots Thymio 2 et Thymio 3 avec l'utilisateur dans un contexte <strong>ONLINE</strong>, 
+      à partir d'une application mobile <strong>iOS</strong> ou <strong>Android</strong>. 
+      <br /><br />
+      L'utilisateur interagit avec l'interface graphique de l'application mobile, qui contient un navigateur intégré (Webview) permettant d'accéder à la page web basée sur React.
+      <br /><br />
+      L'application communique avec le backend à travers le BFF (Backend For Frontend), 
+      qui agit comme un proxy d'interface entre l'application et les microservices. 
+      <br /><br />
+      Le Thymio Suite Relais, représenté par le point d'accès TDM, est utilisé pour connecter les robots Thymio 2 via le protocole Aseba au BFF. 
+      <br /><br />
+      Les robots Thymio 2 et Thymio 3 sont représentés comme des entités distinctes et interagissent avec le BFF pour la communication et la programmation. 
+      <br /><br />
+      L'interface utilisateur utilise des requêtes GraphQL pour interagir avec le BFF.
+    </p>
+  </div>
+  <div style={{ width: '60%' }}> 
+      <C4ModelWrapper 
+        {...{
+            width: '70%',
+            height: 'auto',
+            model: `
+              !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+              !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+              !define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+              !define GOVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/govicons
+              !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+              !define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+              !include DEVICONS/react.puml
+              !include DEVICONS2/nodejs.puml
+              !include DEVICONS2/graphql.puml
+              !include FONTAWESOME/user.puml
+              !include MATERIAL/wifi.puml
+              !define C4_LAYOUT_WITH_LEGEND true
+              AddElementTag("backendContainer", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#7F462C", $shape=EightSidedShape(), $legendText="local backend (from the app side)")
+              AddElementTag("RobotPerson", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#36454F", $shape=EightSidedShape(), $legendText="Robot", $sprite="robot")
+              Person(personAlias1, "User", "Interacting with graphical interfaces", $sprite="user")
+              System_Boundary(App, "Mobile App") {
+                Container_Boundary(Appinterface, "Web View") {
+                  Container(containerAlias1, "Thymio Suite Web", "Front-end Interface", "Web App", $sprite="react")
+                }
+              }
+              System_Boundary(Relais, "Thymio Suite Relais") {
+                Container(containerAlias5, "TDM", "Aseba", "acces point", $sprite="wifi")
+              }
+              System_Boundary(bff, "BFF") {
+                Container(bffAliasUser, "BFF Users", "Backend For Frontend, Interface Proxy", "Microservice", $sprite="graphql")
+                Container(bffAliasRobot, "BFF Robots", "Backend For Frontend, Interface Proxy", "Microservice", $sprite="nodejs")
+              }
+              Person(thymioRobot3, "Thymio 3", "Robots", $tags="RobotPerson")
+              Person(thymioRobot2, "Thymio 2", "Robots", $tags="RobotPerson")
+              Rel(personAlias1, containerAlias1, "Use", "User interface")
+              Rel(thymioRobot2, containerAlias5, "Connect", "Aseba protocol")
+              Rel(containerAlias5, bffAliasRobot, "Publish/Subscribe", "TCP")
+              Rel(thymioRobot3, bffAliasRobot, "Publish/Subscribe", "TCP")
+              Rel(containerAlias1, bffAliasUser, "graphQL", "HTTP")
+              SHOW_LEGEND()
+            `
+        }}
+      />
+  </div>
+</div>
+
+<br /><br /><br />
+
+## ***Web App*** 
+
+<div style={{ display: 'flex' }}>
+  <div style={{ width: '40%', paddingRight: '1rem', textAlign: 'justify' }}>
+    <p>
+     Le diagramme représente la communication des robots Thymio 2 et Thymio 3 avec l'utilisateur dans un contexte <strong>ONLINE</strong>, 
+      à partir d'une application web contenu dans un <strong>Navigateur</strong>. 
+      <br /><br />
+      L'utilisateur interagit avec l'interface graphique de l'application web basée sur React.
+      <br /><br />
+      L'application web communique avec le backend à travers le BFF (Backend For Frontend), qui agit comme un proxy d'interface entre l'application et les microservices. 
+      <br /><br />
+      Le Thymio Suite Relais, représenté par le point d'accès TDM, est utilisé pour connecter les robots Thymio 2 via le protocole Aseba au BFF. 
+      <br /><br />
+      Les robots Thymio 2 et Thymio 3 sont représentés comme des entités distinctes et interagissent avec le BFF pour la communication et la programmation. 
+      <br /><br />
+      L'interface utilisateur utilise des requêtes GraphQL pour interagir avec le BFF.
+    </p>
+  </div>
+  <div style={{ width: '60%' }}> 
+    <C4ModelWrapper 
+      {...{
+          width: '70%',
+          height: 'auto',
+          model: `
+            !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+            !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+            !define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+            !define GOVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/govicons
+            !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+            !define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+            !include DEVICONS/react.puml
+            !include DEVICONS2/nodejs.puml
+            !include DEVICONS2/graphql.puml
+            !include FONTAWESOME/user.puml
+            !include MATERIAL/wifi.puml
+            !define C4_LAYOUT_WITH_LEGEND true
+            AddElementTag("backendContainer", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#7F462C", $shape=EightSidedShape(), $legendText="local backend (from the app side)")
+            AddElementTag("RobotPerson", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#36454F", $shape=EightSidedShape(), $legendText="Robot", $sprite="robot")
+            Person(personAlias1, "User", "Interacting with graphical interfaces", $sprite="user")
+            Container_Boundary(Appinterface, "Web View") {
+              Container(containerAlias1, "Thymio Suite Web", "Front-end Interface", "Web App", $sprite="react")
+            } 
+            System_Boundary(Relais, "Thymio Suite Relais") {
+              Container(containerAlias5, "TDM", "Aseba", "acces point", $sprite="wifi")
+            }
+            System_Boundary(bff, "BFF") {
+              Container(bffAliasUser, "BFF Users", "Backend For Frontend, Interface Proxy", "Microservice", $sprite="graphql")
+              Container(bffAliasRobot, "BFF Robots", "Backend For Frontend, Interface Proxy", "Microservice", $sprite="nodejs")
+            }
+            Person(thymioRobot3, "Thymio 3", "Robots", $tags="RobotPerson")
+            Person(thymioRobot2, "Thymio 2", "Robots", $tags="RobotPerson")
+            Rel(personAlias1, containerAlias1, "Use", "User interface")
+            Rel(thymioRobot2, containerAlias5, "Connect", "Aseba protocol")
+            Rel(containerAlias5, bffAliasRobot, "Publish/Subscribe", "TCP")
+            Rel(thymioRobot3, bffAliasRobot, "Publish/Subscribe", "TCP")
+            Rel(containerAlias1, bffAliasUser, "graphQL", "HTTP")
+            SHOW_LEGEND()
+          `
+      }}
+    />
+  </div>
+</div>
+
+
+
+<br /><br /><br />
+
+## Desktop App (Off-line)
+
+<div style={{ display: 'flex' }}>
+  <div style={{ width: '40%', paddingRight: '1rem', textAlign: 'justify' }}>
+    <p>
+      Le diagramme représente l'interaction de l'utilisateur avec une interface graphique au sein d'une application web contenu dans un <strong>Navigateur</strong>. 
+      <br /><br />
+      L'application web possede un serveur local cotenu dans <strong>WebContainer</strong> qui repond aux fonctionnalités du systeme des microservice (avec une limitation sur le nombre des robots connectés). 
+      <br /><br />
+      Le robot Thymio 3 communique avec le serveur local contenu dans le <strong>WebContainer</strong> ou directement par <strong>Bluetooth</strong> ou  <strong>USB</strong>. 
+      <br /><br />
+      Le robot Thymio 2 communique avec l'application mobile via le point d'accès TDM, qui est contenu dans Thymio suite relais et agit comme un proxy entre le robot et le serveur local.
+      <br /><br />
+      L'application utilise un serveur WebSocket local pour assurer la communications avec les robots thymio 3 ou le Thymio suite relais. 
+      <br /><br />
+      Cette proposition permet une expérience de programmation hors ligne avec les robots Thymio, où l'utilisateur peut interagir directement avec les robots à travers l'application mobile, même sans connexion Internet.
+    </p>
+  </div>
+  <div style={{ width: '60%' }}> 
+    <C4ModelWrapper 
+      {...{
+          width: '100%',
+          height: 'auto',
+          model: `
+            !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+            !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+            !define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+            !define GOVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/govicons
+            !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+            !define MATERIAL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/material
+            !include DEVICONS/react.puml
+            !include DEVICONS2/nestjs.puml
+            !include DEVICONS2/nodejs.puml
+            !include DEVICONS2/graphql.puml
+            !include FONTAWESOME/user.puml
+            !include FONTAWESOME/usb.puml
+            !include GOVICONS/cloud.puml
+            !include FONTAWESOME/asterisk.puml
+            !include FONTAWESOME/bluetooth.puml
+            !include MATERIAL/network_wifi.puml
+            !include MATERIAL/wifi.puml
+            !define C4_LAYOUT_WITH_LEGEND true
+            AddElementTag("backendContainer", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#7F462C", $shape=EightSidedShape(), $legendText="local backend (from the app side)")
+            AddElementTag("RobotPerson", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#36454F", $shape=EightSidedShape(), $legendText="Robot", $sprite="robot")
+            Person(personAlias1, "User", "Interacting with graphical interfaces", $sprite="user")
+            System_Boundary(App, "Mobile App") {
+              Container(containerAlias1, "Thymio Suite Web", "Front-end Interface", "Web App", $sprite="react")
+              Container_Boundary(WebPortw, "Web Ports") {
+                Container(Bluetooth, "Bluetooht", "event base API", "acces point", $sprite="bluetooth")
+                Container(USB, "Usb", "event base API", "acces point", $sprite="usb")
+              }
+              Container_Boundary(WebContainer, "Web Container") {
+                Container(containerAlias4, "WebSocket Server", "event base API", "acces point", $sprite="wifi", $tags="backendContainer")
+              }
+            }
+            System_Boundary(Relais, "Thymio Suite Relais") {
+              Container(containerAlias5, "TDM", "Aseba", "acces point", $sprite="network_wifi")
+            }
+            Person(thymioRobot3, "Thymio 3", "Robots", $sprite="robot", $tags="RobotPerson")
+            Person(thymioRobot2, "Thymio 2", "Robots", $sprite="robot", $tags="RobotPerson")
+            Rel(personAlias1, containerAlias1, "Use", "User interface")
+            Rel(thymioRobot2, containerAlias5, "Connect", "Aseba protocol")
+            Rel(containerAlias5, containerAlias4, "Publish/Subscribe", "TCP")
+            Rel(thymioRobot3, containerAlias4, "Publish/Subscribe", "TCP")
+            Rel(thymioRobot3, Bluetooth, "Publish/Subscribe", "Serial Bletooht")
+            Rel(thymioRobot3, USB, "Publish/Subscribe", "Serial usb")
+            SHOW_LEGEND()
+          `
+      }}
+    />
+  </div>
+</div>
+
+<br /><br /><br />
+
+## Backend Diagramme
+
+<C4ModelWrapper 
+  {...{
+      width: '100%',
+      height: 'auto',
+      model: `
+        !define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+        !define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+        !define GOVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/govicons
+        !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+        !include DEVICONS/react.puml
+        !include DEVICONS2/nestjs.puml
+        !include DEVICONS2/nodejs.puml
+        !include DEVICONS2/graphql.puml
+        !include FONTAWESOME/users.puml
+        !include FONTAWESOME/usb.puml
+        !include GOVICONS/cloud.puml
+        !include FONTAWESOME/asterisk.puml
+        !include FONTAWESOME/bluetooth.puml
+        !define C4_LAYOUT_WITH_LEGEND true
+        System_Boundary(microservices, "Microservices") {
+          Container(msUser, "MS-User", "User-related microservice", "Microservice", $sprite="nestjs")
+          Container(msObserver, "MS-Observer", "Observer-related microservice", "Microservice",  $sprite="nestjs")
+          Container(msAclMqtt, "MS-ACL-MQTT", "ACL and MQTT management microservice", "Microservice",  $sprite="nestjs")
+          Container(msCycleControl, "MS-Cycle-Control", "Cycle and communication control microservice", "Microservice",  $sprite="nestjs")
+          Container(msOrganisations, "MS-Organisations", "Organizations management microservice", "Microservice",  $sprite="nestjs")
+        }
+        System_Boundary(bff, "BFF") {
+          Container(bffAliasUser, "BFF Users", "Backend For Frontend, Interface Proxy", "Microservice", $sprite="graphql")
+          Container(bffAliasRobot, "BFF Robots", "Backend For Frontend, Interface Proxy", "Microservice", $sprite="nodejs")
+        }
+        System_Boundary(mqttCluster, "MQTT Cluster") {
+          Container(systemAlias2, "MQTT Broker", "MQTT message broker", "Message Broker")
+        }
+        System_Boundary(natsService, "NATS Server") {
+          Container(systemAlias1, "Microservices Channel", "Message bus for microservice communication", "Message Bus")
+        }
+        Rel(msAclMqtt, systemAlias1, "Publish/Subscribe", "Message passing")
+        Rel(msCycleControl, systemAlias1, "Publish/Subscribe", "Message passing")
+        Rel(msOrganisations, systemAlias1, "Publish/Subscribe", "Message passing")
+        Rel(bffAliasUser, systemAlias1, "Publish/Subscribe", "Message passing")
+        Rel(bffAliasRobot, systemAlias1, "Publish/Subscribe", "Message passing")
+        Rel(msObserver, systemAlias1, "Publish/Subscribe", "Message passing")
+        Rel(msCycleControl, systemAlias2, "Publish/Subscribe", "Message passing")
+        Rel(msUser, systemAlias1, "Publish/Subscribe", "Message passing")
+        SHOW_LEGEND()
+      `
+  }}
+/>
+
+<br/>
+
+L'architecture de Thymio Suite V3 est un système conçu pour faciliter l'interaction entre les utilisateurs et les robots Thymio. Elle est basé sur les principes de modularité, d'évolutivité et de sécurité, ainsi que plus de fluidité dans la communication, elle repond aux besoins des utilisateurs (ce qui ont été identifiez dans la liste des besoins fonctionnelles), tout en garantissant des performances fluides au niveau de l'usabilité, en prenant en compte leur contexte spécifique, tel que leur niveau académique, le système d'exploitation utilisé, le type de robot (Thymio 2 ou 3) et le mode de connexion souhaité, offrant ainsi une solution complète et flexible.
+
+<br/><br/>
+
+## Front-end: 
+Le front-end regroupe les applications qui interagissent avec les utilisateurs. 
+
+***Thymio Suite Web*** : Cette application web offre une interface basée sur un navigateur permettant aux utilisateurs d'interagir avec les robots Thymio. Elle permet de contrôler les robots, d'accéder à des activités éducatives et de collaborer avec d'autres utilisateurs. Elle est accessible depuis n'importe quel appareil disposant d'un navigateur web et prend en charge des technologies telles que WebUSB, WebBluetooth, WebSockets et MQTT.
+
+***Thymio Suite Mobile*** : Cette application intègre l'application web dans une application mobile, permettant aux utilisateurs d'interagir avec les robots Thymio à l'aide de leurs smartphones ou tablettes. Elle prend en charge différents modes de connexion natives de l'appareil tels que Bluetooth, USB, MQTT, WebSockets et HTTP.
+
+que ce soit avec l'aplication web ou mobile, les deux interfaces offrent une large gamme d'environnements de programmation adaptés au type de robot à programmer, en tenant compte du contexte de l'utilisateur :
+
+- **VPL3+** (Thymio 2 et Thymio 3) : Un environnement de programmation visuelle basé sur des blocs qui permet aux utilisateurs de programmer intuitivement les robots Thymio.
+- **ThymioBlocks** (Thymio 2 et Thymio 3) : Un environnement de programmation visuelle basé sur des blocs qui permet aux utilisateurs de programmer les robots Thymio de manière similaire à Scratch.
+- **MicroPython** (version simplifiée pour Thymio 2) : Un environnement de programmation basé sur du texte qui permet aux utilisateurs de programmer les robots Thymio en utilisant une version simplifiée du langage de programmation Python qui est ensuite traduite en Aseba.
+- **MicroPython** (version complète pour Thymio 3) : Un environnement de programmation basé sur du texte qui permet aux utilisateurs de programmer les robots Thymio en utilisant le langage de programmation Python. (cette version est plus complète que la précédente car elle exécute le code sur le robot lui-même)
+- **Aseba** (Thymio 2 et Thymio 3) : Un environnement de programmation basé sur du texte qui permet aux utilisateurs de programmer les robots Thymio en utilisant le langage de programmation Aseba.
+
+<br/><br/>
+
+## Back-end
+Le back-end comprend les microservices responsables de la logique métier. 
+
+***Microservice MS-User*** : ce microservice gère la gestion des utilisateurs et les opérations associées. Il comprend des fonctionnalités telles que l'authentification, l'autorisation et la gestion des profils d'utilisateur. Il garantit un accès sécurisé au système et permet aux utilisateurs de personnaliser leur expérience.
+
+***Microservice MS-Observer*** : ce microservice surveille l'état et le comportement des robots Thymio. Il fournit des mises à jour en temps réel et des informations détaillées aux utilisateurs.
+
+***Microservice MS-ACL-MQTT*** : ce microservice gère le contrôle d'accès et l'authentification pour les courtiers MQTT. En résumé, il génère les jetons d'accès qui permettent la connexion.
+
+***Microservice MS-Cycle-Control ***: ce microservice contrôle la communication et la coordination entre les robots Thymio et les utilisateurs. Il gère les canaux de communication, synchronise l'exécution des programmes et garantit un échange efficace de messages entre les robots déjà connectés.
+
+***Microservice MS-Organizations*** : ce microservice gère les organisations au sein du système. Il gère les adhésions, la propriété et la collaboration entre les utilisateurs et les robots Thymio au sein des organisations (écoles, universités, ateliers de groupe, etc.).
+
+***BFF Users*** : ce Backend for Frontend agit comme un proxy d'interface pour les utilisateurs. Il fournit une couche d'abstraction entre les utilisateurs et les microservices sous-jacents, optimisant la communication et l'expérience utilisateur.
+
+***BFF Robots*** : ce Backend for Frontend agit comme un proxy d'interface pour les robots. Il permet une communication efficace entre les robots Thymio et les microservices, optimisant l'expérience de programmation et de contrôle des robots.
+
+<br/><br/>
+
+## Packages
+
+***mobsya-solid-helper***: Un outil de programmation qui suit les principes [SOLID](https://en.wikipedia.org/wiki/SOLID), en utilisant un cadre de mise en œuvre basé sur [Domain-Driven Design (DDD)](https://learn.microsoft.com/en-us/archive/msdn-magazine/2009/february/best-practice-an-introduction-to-domain-driven-design) et formalisé à travers la conception de contrats inter-services. Ce package fournit une base solide pour la construction d'applications robustes et maintenables.
+
+***data-model***: Ce package fournit les définitions de classes, de types et de contrats partagés entre différentes applications au sein de Thymio Suite V3. Il favorise la réutilisabilité du code et la cohérence dans la modélisation des données.
+
+***ui-ux***: Une bibliothèque de composants graphiques, partagée entre les applications visuelles. Elle fournit un ensemble de composants d'interface utilisateur réutilisables avec un design esthétiquement cohérent entre toutes nos environnement des programmation.
+
+<br/><br/>
+
+## Infrastructure
+
+l'infrastructure continens les composants qui maintiennent la communication et la persistance des données:
+
+***MQTT Broker*** : responsable de faciliter l'échange de messages entre les robots et/ou les utilisateurs.
+
+***Microservices Channel*** : représente le bus de messages (NATS) utilisé pour la communication entre les microservices.
+
+
+<br/><br/>
+
+## Deployment
+
+En termes de développement et d'opérations, une stratégie de CI/CD (Continuous Integration/Continuous Deployment) est mise en place pour garantir la qualité et l'agilité des processus. Des tests unitaires, d'intégration et de bout en bout sont utilisés pour valider le bon fonctionnement des composants. Des outils de surveillance et de journalisation sont également utilisés pour assurer un suivi et une analyse approfondis des performances du système.
+
+En termes de deployment, Docker est utilisé pour la conteneurisation des microservices, offrant ainsi la portabilité, la cohérence et la facilité de déploiement dans différents environnements. TeamCity, quant à lui, automatise l'intégration continue et la livraison de logiciels, garantissant une livraison fiable et des tests unitaires efficaces.
+
+Avec cette architecture, Thymio Suite V3 offre une solution complète et évolutive, permettant une communication fluide avec les robots Thymio 2 et 3, tout en garantissant des interfaces visuelles performantes, une connectivité polyvalente et une adaptation aux besoins spécifiques des utilisateurs dans leur contexte particulier. De plus, une attention particulière est portée à la structure du code afin de rendre le projet accessible et de favoriser la participation active de la communauté.
+

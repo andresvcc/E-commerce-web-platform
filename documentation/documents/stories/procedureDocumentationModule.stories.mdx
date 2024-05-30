@@ -1,0 +1,449 @@
+import { Meta, Description } from '@storybook/addon-docs'
+
+<Meta 
+  title="Mobsya/Procedures/Documentation d'un module"  
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: { 
+      canvas: { hidden: true } 
+     },
+  }}
+/>
+
+Procédure de documentation d'un module, interface, class, component
+====
+
+```Pour toute documentation, nous utilisons Storybook```
+
+[Storybook](https://storybook.js.org) est un outil de documentation qui fournit des espaces isolés pour construire des interfaces utilisateur de manière découplée. 
+
+Ceci est utile pour développer des interfaces visuelles avec des états difficiles à atteindre et des cas limites sans avoir besoin d'exécuter l'application entière.
+
+<br/><br/>
+
+## Configuration de la documentation automatisée
+
+Pour activer la documentation générée automatiquement dans les histoires, il faut ajouter la propriété de configuration tags à l'exportation par défaut de l'histoire. Par exemple :
+
+```ts
+// Button.stories.ts|tsx
+
+import type { Meta } from '@storybook/react';
+
+import { Button } from './Button';
+
+const meta: Meta<typeof Button> = {
+  title: 'Button',
+  component: Button,
+  //👇 Enables auto-generated documentation for the component story
+  tags: ['autodocs'],
+  argTypes: {
+    backgroundColor: { control: 'color' },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = {
+  args: {
+    primary: true,
+    label: 'Button',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    ...Primary.args,
+    primary: false,
+  },
+};
+
+```
+Une fois l'histoire chargée, Storybook infère les métadonnées pertinentes (par exemple, args, argTypes, paramètres) et génère automatiquement une page de documentation avec cette information positionnée au niveau de la racine de l'arbre de votre composant dans la barre latérale.
+
+<br/>
+
+## Configuration de la documentation managée
+
+La configuration gérée fait référence à l'intention de ne pas utiliser le modèle automatique, soit parce que la documentation doit être présentée d'une manière différente, soit parce que des informations supplémentaires doivent être affichées.
+
+Les fichier de configuration Storybook son clasée utilisant un des modeles suivantes
+
+<br/>
+
+### Dans le cas d'un composant visuel isolé
+
+- **Le fichier de configuration doit se trouver dans le même dossier que le composant**
+- **Être nomée en tenant compte du format suivant `nom du composant`.stories.tsx**
+
+> Par exemple, un composant appelé Button doit avoir un fichier de configuration button.stories.tsx.
+
+
+##### 1. Définition du modèle (Template) utilisé dans les histoires
+
+Un exemples d'utilisation est présenté ci-dessous.
+
+```ts
+
+// Button.stories.ts|tsx
+
+import type { Meta } from '@storybook/react';
+
+import { Button } from './Button';
+
+export default {
+  title: 'Button',
+  component: Button,
+} as ComponentMeta<typeof Button>;
+
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+```
+
+##### 2. Définition des histoires
+
+Une histoire est un cas d'utilisation, si un composant a plusieurs histoires, chaque histoire doit avoir un nom différent et une utilisation différente. 
+
+Par exemple : Un exemples d'utilisation est présenté ci-dessous.
+
+```ts
+
+// 👇 history by default 
+export const Default = Template.bind({});
+
+// 👇 an alternative history
+export const Alternative = Template.bind({});
+
+```
+
+##### 3. Définition des paramettres (args)
+
+L'objet args peut être défini au niveau de l'histoire, du composant et au niveau global. Il s'agit d'un objet JSON sérialisable composé de clés de chaînes de caractères avec des types de valeurs valides correspondants qui peuvent être passés dans un composant sous forme de props.
+
+```ts
+
+export const Default = Template.bind({});
+Default.args = {
+  children: 'Default Button Title',
+};
+
+```
+
+Ces args ne s'appliqueront qu'à l'histoire à laquelle ils sont attachés, bien que vous puissiez les réutiliser par le biais de la réutilisation d'objets JavaScript.
+
+<br/>
+
+### Dans le cas d'une d'une classe ou d'une structure de données
+
+- **Le fichier de configuration doit se trouver dans le même dossier que la classe ou la declaration des types**
+- **le fichier de configuration doit s'appeler `nom`.`type`.stories.mdx**
+
+> Par exemple, la classe User doit être nommée user.class.stories.mdx
+
+##### 1. Définition du modèle (Template) utilisé dans les histoires
+
+```ts
+
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs';
+import { UMLWrapper, ClassStorie, StoryClass, EventStorie, CodeStorie } from 'helpers';
+
+<Meta 
+  // 👇  nom du module définissant le contexte d'utilisation et nom de l'interface
+  title="Modules/ThymioDiscovery/Thymio" 
+/>
+
+```
+
+Comme l'extension du fichier est `.mdx`, l'utilisation de Markdown est supportée. Il est donc attendu par convention de commencer par un titre qui inclut le nom de la classe ou de la structure de données. 
+
+Par exemple : Un extrait de l'en-tête de la documentation de l'interface Thymio est présenté ci-dessous.
+
+```ts
+
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs';
+import { UMLWrapper, ClassStorie, StoryClass, EventStorie, CodeStorie } from 'helpers';
+
+<Meta 
+  // 👇  nom du module définissant le contexte d'utilisation et nom de l'interface
+  title="Modules/ThymioDiscovery/Thymio" 
+/>
+
+[`Interface`](https://www.typescriptlang.org/docs/handbook/interfaces.html) Thymio
+====
+
+```
+
+Dans le cas d'une interface, alors, les éléments suivants doivent être inclus dans le document : 
+
+1. Description
+1. Motivation
+1. Quick start
+1. Exemple d'utilisation
+1. Modele UML
+1. Description détaillée de chaque type de données utilisé dans l'interface, y compris ses dépendances
+
+Dans le cas d'une interface qui represente le contrat d'une entité dont l'état est partagé avec plusieurs observateurs, les éléments énumérés ci-dessus doivent être inclus, ainsi que les éléments suivants.
+
+1. Description des événements et des transitions
+1. Modele de la machine d'état
+
+Dans le cas d'une interface destinée à être utilisée dans le cadre d'un mécanisme d'injection de dépendances, les éléments énumérés ci-dessus doivent être inclus, ainsi que les éléments suivants.
+
+1. Description de chacune des variante
+1. Liste des prédicats de chaque variante
+
+Par exemple : Un extrait de de la documentation de l'interface Thymio est présenté ci-dessous.
+
+
+```ts
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs';
+import { UMLWrapper, ClassStorie, StoryClass, EventStorie, CodeStorie } from 'helpers';
+
+<Meta 
+  title="Domain/Thymio" 
+/>
+
+[`Interface`](https://www.typescriptlang.org/docs/handbook/interfaces.html) Thymio
+====
+
+<br /><br />
+
+## Description
+Cette interface est envisagé pour être utilisé dans le cadre du mécanisme d'injection de dépendances, elle définit le contrat d'une entité Thymio représentant un robot et son statut de connexion au sein du module Thymio Discovery.
+
+<br />
+
+## Motivation
+Comme pour toute interface, cela garantit que la vérification du type de données est cohérente pour toutes les implémentations, c'est-à-dire que bien que thymio 2 et thymio 3 soient deux robots complètement différents avec des mécanismes de communication différents, ils conservent le même schéma de conception et le même modèle de données (cohérence), ce qui garantit que les deux implémentations peuvent être adaptées à la même interface de programmation.
+
+<br /><br />
+
+## Quick start
+
+<CodeStorie>
+{`
+  @inject({ key: 'Thymio', predicate: ['thymio3'] }) thymio?: Thymio
+`}
+</CodeStorie>
+
+<CodeStorie>
+    {`
+    @Store({ key: 'Thymio', predicate: ['thymio3'] })
+    class Thymio3 implements Thymio {
+      uuid: string;
+      
+      readonly status: Observable<ThymioStatus> = createObservable({
+        key: 'Thymio Status',
+        initialValue: {
+          updateAt: 'new Date()',
+          activity: 'initialising',
+          stack: [],
+        },
+      });
+  
+      constructor(uuid: string) {
+        this.uuid = uuid;
+      }
+  
+      subscribe = (fun: (args: any) => void) => {
+        const references = {
+          state: this.status.state,
+        };
+  
+        subscribe(this.status, () => fun(references));
+      };
+    }
+    `}
+</CodeStorie>
+
+<br />
+
+## Example of usage
+
+<CodeStorie>
+{`
+@Service({ key: 'Thymio Watchman', predicate: ['offline'] })
+class ThymioWatchmanOffline {
+  readonly thymio: Thymio
+  
+  constructor(@inject({ key: 'Thymio' }) thymio?: Thymio) {
+    if (!thymio) throw new Error('Session is required')
+    this.thymio = thymio
+  }
+}
+`}
+</CodeStorie>
+
+<br /><br /><br />
+
+## Model UML
+
+<Story 
+  name="Model" 
+  args={{}}>
+<UMLWrapper 
+  height={500}
+  width={500}
+  model={`
+    abstract class Observable< T >{
+      +key : string
+      +state : T
+      +set(value: T): void
+    }
+    enum Activity {
+      executing
+      updating
+      receiving
+      stoped
+      initialising
+    }
+    abstract class Code {
+        +value : string
+    }
+    class ThymioStatus {
+      +updateAt : Date
+      +activity : Activity
+      +stack : Array<Code>
+    }
+    interface Thymio {
+      +uuid : string
+      +status : Observable<ThymioStatus>
+      +subscribe()
+    }
+    Activity <-- ThymioStatus
+    Code <-- ThymioStatus
+    Observable <-- Thymio
+    ThymioStatus <-- Thymio
+  `}
+/>
+</Story>
+
+<br /><br />
+
+## [`Interface`](https://www.typescriptlang.org/docs/handbook/interfaces.html) Script
+
+<Story 
+  name="Thymio" 
+  args={{}}>
+  <ClassStorie
+    type="interface"
+    name="Thymio"
+    uml={``}
+    params={[
+      {
+        name: 'uuid',
+        type: 'string',
+        description: `Représente l'identifiant unique détenu par chaque robot thymio`
+      },
+      {
+        name: 'status',
+        type: 'Observable<ThymioStatus>',
+        description: `Représente l'état du robot qui, dans ce cas, est contrôlé par un observable.`
+      }
+    ]}
+    methods={[
+      {
+        name: 'subscribe',
+        description: `Comprend le mécanisme de souscription au changement d'état du robot.`,
+        args: [
+          {
+            name: 'callback',
+            type: '(args:any)=>void',
+            description: ``
+          }
+        ]
+      }
+    ]}
+  />
+</Story>
+
+<br /><br />
+
+## [`Abstract Class`](https://www.typescriptlang.org/docs/handbook/2/classes.html) ThymioStatus
+
+<Story 
+  name="ThymioStatus" 
+  args={{}}>
+  <ClassStorie
+    type="class"
+    name="ThymioStatus"
+    uml={`
+    enum Activity {
+      executing
+      updating
+      receiving
+      stoped
+      initialising
+    }
+    `}
+    params={[
+      {
+        name: 'updateAt',
+        type: 'Date',
+        description: `Date du dernier changement de statut`
+      },
+      {
+        name: 'activity',
+        type: 'Activity',
+        description: `Nom de status, défini dans la liste des activités`
+      },
+      {
+        name: 'stack',
+        type: 'Array<Code>',
+        description: `Collection des 10 derniers états`
+      }
+    ]}
+    methods={[]}
+  />
+</Story>
+
+<br />
+
+
+## `Transitions and events` ([Event-driven](https://en.wikipedia.org/wiki/Event-driven_programming) )
+
+<EventStorie
+  events={[
+    {
+      name: `STATUS:initialising`,
+      payload: `{ status: 'initialising' }`,
+      description: `Notifie que le robot est entré dans l'état d'initialisation, ce qui signifie que le robot est encore en train d'initialiser le système et qu'il n'a pas encore commencé à communiquer.`
+    },
+    {
+      name: `STATUS:executing`,
+      payload: `{ status: 'executing' }`,
+      description: `Notifie que le robot est entré dans l'état d'exécution, ce qui implique qu'il exécute une instruction ou un programme.`
+    },
+    {
+      name: `STATUS:updating`,
+      payload: `{ status: 'updating' }`,
+      description: `Notifie que le robot est entré dans l'état de rafraîchissement, ce qui signifie qu'il est occupé à rafraîchir une variable, un son ou un fichie.`
+    },
+    {
+      name: `STATUS:sending`,
+      payload: `{ status: 'sending' }`,
+      description: `Notifie que le robot est entré dans l'état d'envoi, ce qui implique que le robot soit en train d'envoyer des informations par le biais d'un canal de communication.`
+    },
+    {
+      name: `STATUS:receiving`,
+      payload: `{ status: 'receiving' }`,
+      description: `Notifie que le robot est entré dans l'état de réception, ce qui implique le fait qu'il reçoit des informations par le biais d'un canal de communication.`
+    },
+    {
+      name: `STATUS:stoped`,
+      payload: `{ status: 'stoped' }`,
+      description: `Notifie que le robot est entré dans l'état d'arrêt, ce qui implique que le robot n'a rien à faire.`
+    },
+  ]}
+/>
+
+<br />
+
+## Machine d'état
+
+<div>
+  <iframe style={{ width: '100%', height: '70vh'}} src="https://stately.ai/viz/embed/c31bcf3c-7c9d-46ae-a201-b7deda859a4b?mode=viz&panel=code&showOriginalLink=1&readOnly=1&pan=1&zoom=1&controls=1" sandbox="allow-same-origin allow-scripts"></iframe>
+</div>
+
+```

@@ -1,0 +1,119 @@
+import { Meta, Description } from '@storybook/addon-docs'
+
+<Meta 
+  title="Mobsya/Justification/Inversion et injection de dépendances"  
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: { 
+      canvas: { hidden: true } 
+     },
+  }}
+/>
+
+Justification du choix relatif à l'utilisation de l'inversion et injection de dépendances
+=========
+
+<br /><br /><br /><br />
+
+### Contexte
+- Dans le cadre de ce projet, il est nécessaire de gérer correctement le découplage entre les classes, la modularité des implémentations et la testabilité des cas d'utilisation concrets.
+
+- Il est extrêmement important de veiller à ce que le code soit toujours lisible et que la liste des dépendances d'une classe figure directement dans la signature de son constructeur afin de faciliter l'intégration des nouveaux développeurs.
+
+- Étant donné que le robot Thymio 3 est susceptible de prendre en charge différents mécanismes de connexion (mqtt, web socket, bluetooth, usb), il est possible d'avoir différentes implementation visant a effectuer la meme action mais dans des conextes differentes.
+
+### Principe d'inversion
+
+Le principe d'inversion de dépendance, également connu sous le nom de `Dependency Inversion Principle` ou `DIP`, est le dernier des [cinq principes SOLID de la programmation orientée objet](https://en.wikipedia.org/wiki/SOLID).
+
+Les regles donnée à l'origine par `Uncle Bob` sont les suivantes : 
+
+- Les modules de haut niveau ne doivent pas dépendre des modules de bas niveau et Les deux doivent dépendre des abstractions. 
+- Les abstractions ne doivent pas dépendre des détails d'implementation et Les détails d'implementation doivent dépendre des abstractions.
+
+***Modules de haut niveau*** : il s'agit des objets qui définissent ce qui fait le programe. Ils contiennent la `logique métier` et la manière dont les logiciels interagissent entre eux. Ce sont les objets les plus importants du programme.
+
+> *Par exemple, dans la Thymio Suite V3, il peut y avoir un objet qui se charge d'observer l'état de la connexion de tous les robots thymio en cours d'utilisation. dans ce cas on peut asumer qu'il est de haut niveau car il ne se soucie pas de connaître le mode de connexion (mqtt, usb, etc...).*
+
+***Modules de bas niveau*** : il s'agit d'objets qui sont directement liés à la logique d'implementation du programme. Par exemple, le mécanisme de persistance (CoreData, Realm, MySQL, etc.) ou le mécanisme d'accès au réseau (URLSession, Alamofire, AFNetworking, etc.). Il s'agit d'objets moins importants, dont la `logique métier` ne dépend pas.
+
+***Abstractions*** : il s'agit de types de données qui ne sont pas des implémentations concrètes, mais qui définissent l'interface publique. Il s'agit donc de protocoles (ou d'interfaces) ou de classes abstraites.
+
+***Détails implementation***: il s'agit des implémentations concrètes, qui contiennent des détails d'implémentation tels que :
+
+- le mécanisme de persistance utilisé en fonction du device (tablette, pc, mac)
+- le mecanisme utilisé pour accéder au réseau via mqtt, bluetooth, usb, etc...
+- l'interface de developpement VPL3, SCRATCH, etc..
+
+<br /><br/>
+
+Les inconvénients qui peuvent résulter de la non-utilisation du principe d'inversion des dépendances
+----
+
+***Couplage entre les modules de haut niveau et les modules de bas niveau***: En d'autres termes, la `logique métier` dépendra des détails d'implémentation, 
+
+- Par example le principe d'inversion de la dépendance vise à éviter que, pour modifier un détail de l'implémentation tel que l'ajout d'un nouveau mécanisme de connexion d'un robot thymio, il soit nécessaire de toucher le code des mécanismes de connexion existants ou le code des interfaces de developpement.
+
+- Si jamais il faut modifier des détails de l'implémentation dans un `Modules de bas niveau`, par exemple le mécanisme de persistance des données, il faudra également modifier les `Modules de haut niveau` et la manière dont ils stockent l'information.
+
+***Les dépendances entre les objets ne sont pas claires*** : À première vue, il ne sera pas facile de savoir si la modification d'une caractéristique peut en affecter d'autres et générer des effets secondaires indésirables.
+
+
+***Il devient beaucoup plus difficile de tester une classe en tant qu'unité*** : si une classe dépend d'une autre et qu'il n'est pas possible de la remplacer par un simulateur dans les tests, il ne sera pas possible de la tester en tant qu'unité. Et si le test échoue, il n'est pas possible de savoir quel objet est réellement en cause.
+
+<br/><br/>
+
+Justification technique relatif à l'utilisation de injection de dépendances
+---
+
+Il s'agit d'un modèle de conception orienté objet, dans lequel les objets ne sont pas instanciés directement dans les classes elles-mêmes, mais sont injectés conformément aux contrats spécifiés (ce qui explique le concept de dépendance). 
+
+Nos classes ne créent pas les objets dont elles ont besoin, mais sont fournies par une autre classe "conteneur" qui injectera l'implémentation spécifiée dans notre contrat.
+
+En d'autres termes, il s'agit d'un modèle de conception qui prend la responsabilité de créer des instances d'un composant et la délègue à un autre.
+
+L'injection de dépendances est appliquée dans la plupart des frameworks actuels et fait partie des outils et des modèles fournis au programmeur.
+
+#### Les inconvénients qui peuvent résulter de la non-utilisation du principe d'injection de dépendances sont les suivants :
+
+***Difficulté à faire évoluer***: Lorsque les changements ont un impact sur d'autres entités, pas nécessairement dépendantes, un système ou une application est dit fragile ou dificil a évoluer.
+
+***Difficulté de réutilisation*** : en raison du couplage, il sera plus difficile de généraliser l'utilisation d'une classe dans différents contextes, ce qui rend la réutilisation plus difficile.
+
+
+<br />
+
+Les inconvénients de l'inversion et de l'injection de dépendances
+----
+
+
+L'injection de dépendance, en particulier l'injection dans le constructeur, implique une plus grande complexité qui se manifeste sous différents aspects. 
+
+***Augmentation de l'encapsulation et de la dissimulation d'informations :*** En n'exposant pas les dépendances par le biais du constructeur, les clients de la classe ne connaissent pas les détails de l'implémentation de la classe et le comportement est davantage encapsulé dans la classe. 
+
+Cela peut conduire à une discussion sémantique sur la question de savoir si les dépendances peuvent être considérées comme faisant partie du comportement et/ou de l'information d'une classe.
+
+***Le faible couplage entre les dépendances tend à entraîner une faible cohésion qui rend difficile le suivi du code :** En effet le code nécessaire à l'exécution d'une tâche est dispersé en plusieurs endroits. Et il est facile de tomber dans ce que l'on appelle les interfaces d'en-tête, c'est-à-dire les interfaces qui n'ont qu'une seule implémentation, ce que beaucoup considèrent comme un anti-patron.
+
+***Difficulté à documenter :*** Comme le même contrat peut être resolu avec différentes implementations, nous devons documenter chacune d'entre elles séparément, ce qui augmente le nombre d'éléments à documenter et peut entraîner des problèmes sémantiques.
+
+<br/><br/>
+
+Conclusion
+----
+
+L'importance du modèle d'injection de dépendances est primordiale dans la plupart des frameworks et fait partie d'une exigence de standardisation, Cependant, il n'est pas pratique d'utiliser l'injection de dépendances comme technique par défaut pour tout.
+
+L'important est de garder l'esprit ouvert et de ne pas tomber dans le piège de penser qu'il est toujours avantageux de faire les choses de la même manière. 
+
+Il n'est pas nécessaire qu'un système entier soit régi par les mêmes principes. 
+
+Nous pouvons avoir une application qui utilise l'injection de dépendances et un conteneur d'inversion de contrôle, mais qui, pour un sous-système donné, utilise une classe qui met en avant et contrôle l'ensemble d'un sous-système de manière statique.
+
+**Nous en concluons donc que l'utilisation est autorisée.**
+
+Mais pour l'instant, nous limitons son utilisation exclusivement aux circustances suivantes:
+
+- Des interfaces avec des implémentations multiples qui conservent le même contrat
+- Aux API publiques qui ont besoin des simulateurs (Mocking) pour être testées.
+- Les structures de données 

@@ -1,0 +1,158 @@
+import { Meta, Description, Story, Canvas } from '@storybook/addon-docs';
+import { C4ModelWrapper, Minmaps, UMLWrapper } from 'helpers';
+
+<Meta 
+  title="Mobsya/Justification/Modélisation de l'Architecture"  
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: { 
+      canvas: { hidden: true } 
+     },
+  }}
+/>
+
+Justification du choix relatif à l'outil de modélisation de l'architecture
+=========
+
+<br /><br /><br /><br />
+
+### Contexte
+- Dans le cadre de ce projet, Il a été demandé à l'équipe de développement de documenter l'architecture, ce qui implique le choix d'un formalisme de documentation et d'un outil de modélisation.
+
+### Analyse
+Il existe plusieurs formalismes utilisés pour modéliser une architecture logicielle. Chaque formalisme a ses propres notations et concepts spécifiques.
+
+1. ***C4*** (Context, Container, Component, Class) : Le modèle C4 est un modèle d'architecture logicielle qui fournit une structure pour représenter les différents niveaux d'abstraction de l'architecture. Il se concentre sur les contextes, les conteneurs, les composants et les classes pour décrire les différents éléments de l'architecture logicielle.
+
+1. ***Arc42*** : Arc42 est un modèle d'architecture logicielle qui met l'accent sur l'organisation et la structuration des documents d'architecture logicielle. Il fournit des modèles de document standardisés pour décrire l'architecture logicielle et ses différentes perspectives.
+
+1. ***BPMN*** : Le Business Process Model and Notation (BPMN) est un langage graphique pour la modélisation des processus métier. Bien qu'il ne soit pas spécifiquement conçu pour l'architecture logicielle, il peut être utilisé pour modéliser les flux de processus et les interactions entre les composants logiciels.
+
+1. ***UML*** : Unified Modeling Language (UML) est un langage de modélisation graphique polyvalent largement utilisé pour la modélisation des logiciels. Il propose différents types de diagrammes (diagramme de classes, diagramme de séquence, diagramme de composants, etc.) qui peuvent être utilisés pour représenter l'architecture logicielle.
+
+1. ***EventStorming*** : EventStorming est une technique de modélisation collaborative qui permet d'explorer et de comprendre les flux d'événements au sein d'un système logiciel. Il met l'accent sur la collaboration entre les parties prenantes et peut être utilisé pour capturer les aspects clés de l'architecture logicielle.
+
+<br /><br />
+
+Conclusion
+----
+**Subjectivement**, le leader technique a pris la décision d'utiliser le modèle C4 : pour cela, il faut au moins les arguments suivants :
+
+Le modèle C4 (Context, Container, Component, Class) est un moyen efficace de documenter l'architecture logicielle d'un système. Il se concentre sur les différents niveaux d'abstraction et fournit une structure claire pour représenter les différents éléments de l'architecture. Les paragraphes suivants expliquent comment documenter une architecture logicielle à l'aide du modèle C4 :
+
+- ***Contexte (Context) :*** Commencez par décrire le contexte général du système, en identifiant les acteurs externes, les systèmes voisins, les utilisateurs et les interactions externes. Vous pouvez utiliser des diagrammes de contexte pour représenter ces éléments.
+
+- ***Conteneurs (Containers) :*** Identifiez les principaux conteneurs du système, tels que les applications, les services, les bases de données, les serveurs, etc. Décrivez les responsabilités de chaque conteneur et leurs interactions les uns avec les autres. Utilisez des diagrammes de conteneurs pour visualiser les relations entre les différents conteneurs.
+
+- ***Composants (Components) :*** À l'intérieur de chaque conteneur, identifiez les principaux composants logiciels qui le composent. Ces composants peuvent être des modules, des bibliothèques, des services, etc. Décrivez les responsabilités de chaque composant et leurs dépendances avec d'autres composants. Utilisez des diagrammes de composants pour représenter les relations entre les différents composants à l'intérieur d'un conteneur.
+
+- ***Classes (Classes) :*** Si nécessaire, vous pouvez plonger plus profondément dans les détails de chaque composant et documenter les classes ou les objets spécifiques qui les composent. Utilisez des diagrammes de classes pour illustrer les structures et les relations entre les différentes classes.
+
+<br /><br />
+
+Voici un exemple de représentation d'une architecture logicielle en utilisant le modèle C4 :
+
+
+#### Niveau de contexte (Context) :
+
+<br /><br /><br />
+
+<C4ModelWrapper 
+  {...{
+      width: 650,
+      height: 650,
+      model: `
+      !define C4_LAYOUT_WITH_LEGEND true
+      Person(personAlias1, "User", "All user") 
+      Person(personAlias2, "Thymio 2", "Robot") 
+      System(containerAlias1, "Thymio Suite Mobile", "Mobile App", "Android, iOS")
+      System(containerAlias2, "Thymio Suite Web", "Web App", "Browser ")
+      System(systemAlias1, "TDM", "Service")
+      Rel(personAlias1, containerAlias1, "Use", "ux interface")
+      Rel(personAlias1, containerAlias2, "Use", "ux interface")
+      Rel(containerAlias1, systemAlias1, "websocket", "js api")
+      Rel(containerAlias2, systemAlias1, "websocket", "js api")
+      Rel(systemAlias1, personAlias2, "Zigbee", "rf 2.4G")
+      SHOW_LEGEND()
+      `
+  }}
+/>
+
+#### Niveau des conteneurs (Containers) :
+
+<C4ModelWrapper 
+  {...{
+      width: 450,
+      height: 450,
+      model: `
+      !define C4_LAYOUT_WITH_LEGEND true
+      Container(vpl3, "VPL3", "Frontend")
+      Container(scratch, "Scratch", "Frontend")
+      Container(thymioConnect, "ThymioConnect", "Module")
+      Container(uxd, "Thymio Suite app", "User Inferface")
+      Container(zeroConf, "ZeroConf", "Module")
+      Container(api, "API-js", "Module")
+      vpl3 -down-> api: Utilise
+      scratch -down-> api: Utilise
+      uxd -down-> thymioConnect: Utilise
+      thymioConnect -down-> zeroConf: Utilise
+      uxd -down-> vpl3: Controle
+      uxd -down-> scratch: Controle
+      SHOW_LEGEND()
+      `
+  }}
+/>
+
+#### Niveau des composants (Components) :
+
+<Minmaps 
+  height={200}
+  width={500}
+  model={`
+  * Thymio Suite app
+  ** Thymio Connect
+  ** IDE Selector
+  *** Thymio Selector
+  `}
+/>
+
+#### Niveau des classes (Classes) :
+
+<UMLWrapper 
+  height={500}
+  width={500}
+  model={`
+    abstract class Observable< T >{
+      +key : string
+      +state : T
+      +set(value: T): void
+    }
+    enum Activity {
+      executing
+      updating
+      receiving
+      stoped
+      initialising
+    }
+    abstract class Code {
+        +value : string
+    }
+    class ThymioStatus {
+      +updateAt : Date
+      +activity : Activity
+      +stack : Array<Code>
+    }
+    interface Thymio {
+      +uuid : string
+      +status : Observable<ThymioStatus>
+      +subscribe()
+    }
+    Activity <-- ThymioStatus
+    Code <-- ThymioStatus
+    Observable <-- Thymio
+    ThymioStatus <-- Thymio
+  `}
+/>
+
+Ces exemples utilisent la syntaxe PlantUML pour générer des diagrammes dans le cadre du modèle C4.
+

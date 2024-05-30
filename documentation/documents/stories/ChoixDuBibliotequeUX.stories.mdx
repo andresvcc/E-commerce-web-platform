@@ -1,0 +1,106 @@
+import { Meta, Description } from '@storybook/addon-docs'
+
+<Meta 
+  title="Mobsya/Justification/bibliotequeUX"  
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: { 
+      canvas: { hidden: true } 
+     },
+  }}
+/>
+
+Justification du choix d'une bibliothèque UX
+=========
+
+<br /><br /><br /><br />
+
+### Contexte
+
+- Afin de formaliser la réutilisation des composants visuels, il semble important de definir si nous allons utiliser une bibliothèque UX et si c'est le cas d'en réglementer l'utilisation.
+
+
+### Avantages
+
+- Il existe plusieurs raisons pour lesquelles il est généralement préférable de choisir une bibliothèque UX plutôt que de créer tous les composants à partir de zéro dans React. Voici quelques-unes des principales raisons :
+
+
+1. ***Gain de temps :*** Les bibliothèques UX fournissent des composants prêts à l'emploi qui ont déjà été conçus, testés et optimisés. Cela permet aux développeurs de gagner du temps en évitant de devoir créer chaque composant à partir de zéro. Les composants prédéfinis peuvent être facilement intégrés et personnalisés selon les besoins du projet, ce qui accélère le développement de l'interface utilisateur.
+
+
+2. ***Consistance :*** En utilisant une bibliothèque UX, vous vous assurez d'une cohérence visuelle et d'interaction dans notre application. Les composants fournis par la bibliothèque sont conçus pour suivre des directives de conception cohérentes, ce qui garantit une expérience utilisateur uniforme dans toute l'application. Cela évite d'avoir des composants disparates avec des styles et des comportements différents.
+
+
+3. ***Meilleures pratiques :*** Les bibliothèques UX sont souvent créées par des experts en conception d'interface utilisateur et en développement React. Elles incorporent des meilleures pratiques et des conventions de codage qui garantissent une qualité élevée et des performances optimales. En utilisant ces bibliothèques, vous bénéficiez de l'expertise collective de la communauté pour la création de nos interface utilisateur.
+
+
+4. ***Mises à jour et support :*** Les bibliothèques UX populaires sont régulièrement mises à jour pour inclure de nouvelles fonctionnalités, améliorations de performances et correctifs de bogues. Elles bénéficient également souvent d'une communauté active qui fournit un support, des exemples de code et des ressources supplémentaires. En utilisant une bibliothèque bien établie, vous avez accès à ces mises à jour et à cette assistance, ce qui contribue à maintenir notre application à jour et fiable.
+
+
+5. ***Facilité d'utilisation :*** Les bibliothèques UX sont généralement conçues pour être faciles à utiliser et à intégrer dans des projets React existants. Elles fournissent une API cohérente et des instructions claires pour l'utilisation des composants. Cela facilite le processus de développement, en particulier pour les développeurs qui n'ont pas une expertise approfondie en conception d'interface utilisateur.
+
+En résumé, en utilisant une bibliothèque UX dans React, l'on bénéficie d'un ensemble de composants prêts à l'emploi, d'une cohérence visuelle et d'interaction, de bonnes pratiques, de mises à jour et d'un support réguliers, et d'une facilité d'utilisation. Cela permet d'accélérer le développement des interfaces utilisateurs tout en garantissant une expérience utilisateur de qualité.
+
+<br />
+
+### Inconvénients
+
+L'utilisation d'une bibliothèque UX dans ReactJS peut présenter certains inconvénients. Voici quelques-uns d'entre eux :
+
+
+1. ***Complexité supplémentaire :*** L'ajout d'une bibliothèque UX peut rendre le code plus complexe, en particulier si la bibliothèque propose de nombreux composants et fonctionnalités. Cela peut augmenter la courbe d'apprentissage pour les développeurs qui ne sont pas familiers avec la bibliothèque.
+
+
+2. ***Surcharge des fonctionnalités :*** Les bibliothèques UX sont souvent conçues pour offrir une large gamme de fonctionnalités et de composants pré-construits. Cependant, cela peut entraîner une surcharge de fonctionnalités inutiles pour notre application spécifique. L'utilisation de fonctionnalités non nécessaires peut alourdir le bundle JavaScript et affecter les performances de l'application.
+
+
+3. ***Personnalisation limitée :*** Bien que les bibliothèques UX offrent souvent une grande variété de composants prêts à l'emploi, il peut être difficile de les personnaliser pour répondre aux besoins spécifiques de notre application. Vous pourriez vous retrouver à modifier ou à étendre les composants de la bibliothèque, ce qui peut être complexe et nécessiter une compréhension approfondie de la bibliothèque elle-même.
+
+
+4. ***Dépendance externe :*** L'utilisation d'une bibliothèque UX ajoute une dépendance externe à notre projet. Cela signifie que nous devons nous fier à la bibliothèque pour les mises à jour, la maintenance et la résolution des problèmes. Si la bibliothèque n'est plus maintenue ou si elle évolue dans une direction incompatible avec notre application, cela peut poser des problèmes de compatibilité et de pérennité à long terme.
+
+
+5. ***Taille du bundle :*** L'ajout d'une bibliothèque UX peut augmenter considérablement la taille du bundle JavaScript de notre application. Cela peut avoir un impact sur les temps de chargement de l'application, en particulier sur les connexions Internet lentes ou sur les appareils mobiles.
+
+
+6. ***Conflits de style :*** Les bibliothèques UX ont souvent leur propre ensemble de styles et de conventions de conception. Si nous utilisons une bibliothèque UX avec une conception déjà existante dans notre application, cela peut entraîner des conflits de style et rendre difficile l'intégration harmonieuse des composants de la bibliothèque.
+
+
+### Autres options
+la technique de Styled-components est une option populaire de styles en ligne pour les applications React. Elle offre une approche unique capable de gérer les styles dans les composants en les reliant directement à des composants React plutôt qu'à des fichiers de style externes.
+
+Voici quelques raisons pour lesquelles styled-components peut être considérée comme une option viable et même meilleure que les bibliothèques UX avec des composants prêts à l'emploi :
+
+- Flexibilité : Avec styled-components, vous pouvez créer des styles personnalisés pour chaque composant individuel. Cela vous permet d'adapter les styles à nos besoins spécifiques, plutôt que de vous fier à des styles prédéfinis. Vous pouvez également utiliser les fonctionnalités avancées de CSS, telles que les animations et les transitions, directement dans les composants.
+
+- Encapsulation des styles : Les styles définis avec styled-components sont encapsulés au niveau du composant. Cela signifie que les styles ne s'appliqueront qu'au composant spécifique auquel ils sont associés, éliminant ainsi le risque de collisions de styles entre les composants.
+
+- Composition de styles : Avec styled-components, vous pouvez facilement composer des styles en utilisant des fonctions et des variables. Cela permet de réutiliser et de combiner des styles de manière modulaire, ce qui facilite la création et la maintenance des styles dans nos applications.
+
+- Dynamic styling : Styled-components facilite la gestion des styles dynamiques. Vous pouvez facilement baser les styles sur les props ou l'état des composants, ce qui vous permet de créer des composants réutilisables et flexibles.
+
+- Meilleure intégration avec React : Étant donné que styled-components est spécialement conçu pour fonctionner avec React, il offre une excellente intégration avec l'écosystème React. Il prend en charge les fonctionnalités avancées de React, telles que les thèmes, les contextes et les refs, ce qui facilite le développement d'applications React cohérentes et performantes.
+
+<br />
+
+
+Conclusion
+----
+
+L'utilisation de composants stylisés dans ReactJS permet de créer des composants React autonomes, bien structurés, réutilisables et faciles à maintenir. La séparation des préoccupations, la gestion encapsulée des styles, les fonctionnalités avancées et l'écosystème robuste sont autant de raisons convaincantes d'adopter cette bibliothèque dans nos projets ReactJS, plutôt qu'une bibliothèque de composants prêts à l'emploi.
+
+Bien qu'il existe des bibliothèques UX avec des composants prêts à l'emploi, styled-components offre une approche plus flexible et personnalisable pour la gestion des styles pour nos applications. Cela peut être particulièrement bénéfique selon nos besoins de conception spécifiques ceci afin de maintenir un contrôle étroit sur les styles de nos applications.
+
+L'utilisation de la stratégie des composants stylisés dans ReactJS est la plus adaptée à nos besoins. Voici quelques raisons en plus pour lesquelles nous avons choisi d'utiliser cette stratégie :
+
+- Séparation des préoccupations : styled-components permet de séparer les préoccupations en regroupant le code CSS avec les composants React. Au lieu d'avoir des fichiers CSS séparés, chaque composant peut avoir son propre code CSS déclaratif directement intégré dans le fichier JavaScript. Cela facilite la compréhension et la maintenance du code, car tout ce qui est nécessaire pour comprendre et modifier un composant est inclus dans un seul fichier.
+
+- Scoped styles : styled-components génère automatiquement des classes CSS uniques pour chaque composant, garantissant ainsi l'encapsulation des styles. Les styles définis dans un composant ne seront appliqués qu'à ce composant spécifique, éliminant ainsi le risque de collisions de styles avec d'autres parties de l'application. Cela facilite le développement modulaire et réduit les effets de bord indésirables.
+
+- Interpolation dynamique : styled-components prend en charge l'interpolation dynamique des valeurs, ce qui signifie que vous pouvez facilement utiliser des props, des variables ou des expressions JavaScript dans les styles. Cela permet de créer des composants réutilisables et flexibles, où les styles peuvent être conditionnellement appliqués en fonction des données ou du comportement des composants.
+
+- Capacités étendues : styled-components offre une large gamme de fonctionnalités pour faciliter le développement de styles avancés. Vous pouvez utiliser des médiatiques queries, des animations CSS, des pseudo-classes, des thèmes personnalisés, etc. La bibliothèque propose également des fonctionnalités telles que l'héritage de styles, la création de composants basés sur des styles existants et la prise en charge des motifs de conception tels que BEM (Block-Element-Modifier).
+
+- Meilleure maintenabilité : Grâce à la nature déclarative des styles dans styled-components, il est plus facile de comprendre et de modifier les styles au fil du temps. Les styles sont liés directement au composant correspondant, ce qui permet de localiser rapidement les styles associés à un composant spécifique. Cela facilite également le refactoring et le partage de composants entre les équipes, car tout ce qui est nécessaire pour reproduire un composant est inclus dans son fichier.
+
+- Écosystème solide : styled-components est une bibliothèque très populaire avec une communauté active. Cela signifie qu'il existe de nombreuses ressources, des exemples et des plugins disponibles pour étendre les fonctionnalités de la bibliothèque. Vous pouvez également trouver un large éventail de composants React qui sont déjà intégrés avec styled-components, ce qui facilite leur utilisation et leur personnalisation.

@@ -1,0 +1,158 @@
+
+import { Meta, Description } from '@storybook/addon-docs'
+
+<Meta 
+title="Test Report"  
+parameters={{
+    viewMode: 'docs',
+    previewTabs: { 
+    canvas: { hidden: true } 
+    },
+}}
+/>
+
+# Test Report
+
+## ThymioController
+
+- ✅  createThymio should create a new Thymio and add it to the stack: Passed
+- ✅  addThymio should add a thymio to the stack: Passed
+- ✅  removeThymio should remove a thymio from the stack: Passed
+- ✅  findThymio should find a thymio in the stack by uuid: Passed
+- ✅  findThymio should return undefined if thymio is not found: Passed
+- ✅  subscribeToThymio should subscribe to a thymio status by uuid: Passed
+- ✅  subscribeToThymio should not subscribe if thymio is not found: Passed
+- ✅  subscribeToAllThymio should subscribe to all thymio status in the stack: Passed
+- ✅  connectThymioToSever should connect a thymio to a server and set connection mode: Passed
+- ✅  connectThymioToSever should not connect if thymio is not found: Passed
+- ✅  connectAllThymioToSever should connect all thymio in the stack to a server: Passed
+
+## Injection Thymio entity
+
+- ✅  Thymio2 [Store]: Passed
+- ✅  Thymio3 [Store]: Passed
+- ✅  thymioExtension [Store]: Passed
+- ✅  Thymio Controller [Service]: Passed
+
+## Hierarchical Dependency Injection
+
+- ✅  should get a dependency using factoryFromInjectable: Passed
+- ✅  should have 4 roles: ACTOR, BOUNDED_CONTEXT, SERVICE, and STORE: Passed
+- ✅  should instantiate a class as a singleton: Passed
+- ✅ Dependency Injection with Decorators should resolve Actor dependencies using factory: Passed
+- ✅ Dependency Injection with Decorators should resolve BoundedContext dependencies using factory: Passed
+- ✅ Dependency Injection with Decorators should resolve Store dependencies using factory: Passed
+- ✅ Dependency Injection with Decorators should resolve Service dependencies using factory: Passed
+- ✅ Dependency Injection with Decorators should resolve Store predicated dependencies using factory: Passed
+- ✅ Dependency Injection with Decorators should resolve dependencies using decorators: Passed
+
+## NatsMessagePattern
+
+- ✅  send should send a message and return the response: Passed
+- ✅  send should handle errors and throw an HttpException for timeout: Passed
+- ✅  send emit should emit an event and resolve successfully: Passed
+- ✅  send emit should handle errors and throw an HttpException: Passed
+
+## healthChecker
+
+- ✅  should return an object with name, version, uptime, and isHealthy properties: Passed
+- ✅  should return a name property with value "infrastructure": Passed
+- ✅  should return a "version" property in the correct format.: Passed
+- ✅  should return a uptime property with values years,months,days,hours,minutes,seconds : Passed
+- ✅  should return an isHealthy property with a boolean value: Passed
+
+## NavBar component
+
+- ✅ tests  props children string: Passed
+- ✅ tests  props children reactNode: Passed
+
+## ResponsiveTable
+
+- ✅  renders the table with correct columns and rows: Passed
+
+## Typographie component
+
+- ✅ tests  props children string: Passed
+- ✅ tests  props children reactNode: Passed
+- ✅ tests  props onClick: Passed
+
+## Autocomplete
+
+- ✅  renders the Autocomplete component: Passed
+
+## Button component
+
+- ✅ tests  props children string: Passed
+- ✅ tests  props children reactNode: Passed
+- ✅ tests  props onClick: Passed
+
+## Photo component
+
+- ✅ tests  Photo rendering: Passed
+
+## Button component
+
+- ✅ tests  props children string: Passed
+- ✅ tests  props children reactNode: Passed
+- ✅ tests  props onClick: Passed
+
+## Spinners component
+
+- ✅ tests  Spinner dual-ring rendering: Passed
+- ✅ tests  Spinner default rendering: Passed
+- ✅ tests  Spinner scan rendering: Passed
+- ✅ tests  Spinner advanced rendering: Passed
+- ✅ tests  Spinner all rendering: Passed
+- ✅ tests  Spinner dots rendering: Passed
+
+## Icons component
+
+- ✅ tests  icon logoThymioByMobsya rendering: Passed
+- ✅ tests  icon thymio rendering: Passed
+- ✅ tests  icon help rendering: Passed
+- ✅ tests  icon all rendering: Passed
+- ✅ tests  icon alert rendering: Passed
+- ✅ tests  icon info rendering: Passed
+- ✅ tests  icon close rendering: Passed
+- ✅ tests  icon simulator rendering: Passed
+- ✅ tests  icon wifi rendering: Passed
+- ✅ tests  icon bluetooth rendering: Passed
+- ✅ tests  icon usb rendering: Passed
+- ✅ tests  icon dongle rendering: Passed
+- ✅ tests  icon search rendering: Passed
+- ✅ tests  icon filter rendering: Passed
+- ✅ tests  icon play rendering: Passed
+- ✅ tests  icon advanced rendering: Passed
+- ✅ tests  icon stop rendering: Passed
+- ✅ tests  icon add rendering: Passed
+- ✅ tests  icon bell rendering: Passed
+- ✅ tests  icon arrow rendering: Passed
+- ✅ tests  icon arrow2 rendering: Passed
+- ✅ tests  icon bug rendering: Passed
+- ✅ tests  icon cloud rendering: Passed
+- ✅ tests  icon copy rendering: Passed
+- ✅ tests  icon cut rendering: Passed
+- ✅ tests  icon undo rendering: Passed
+- ✅ tests  icon rendo rendering: Passed
+- ✅ tests  icon dashboard rendering: Passed
+- ✅ tests  icon menu rendering: Passed
+- ✅ tests  icon paste rendering: Passed
+- ✅ tests  icon save rendering: Passed
+- ✅ tests  icon favorite rendering: Passed
+- ✅ tests  icon print rendering: Passed
+- ✅ tests  icon share rendering: Passed
+- ✅ tests  icon vpl rendering: Passed
+- ✅ tests  icon python rendering: Passed
+- ✅ tests  icon scratch rendering: Passed
+- ✅ tests  icon trash rendering: Passed
+- ✅ tests  icon mango rendering: Passed
+- ✅ tests  icon thymioLeftSide rendering: Passed
+- ✅ tests  icon showPassword rendering: Passed
+- ✅ tests  icon broadcast rendering: Passed
+- ✅ tests  icon wireless rendering: Passed
+- ✅ tests  icon router rendering: Passed
+- ✅ tests  icon internet rendering: Passed
+- ✅ tests  icon devices rendering: Passed
+- ✅ tests  icon thymioSide rendering: Passed
+- ✅ tests  clicklable icon: Passed
+
