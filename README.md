@@ -7,11 +7,6 @@ The XXX-NAME-XXX Platform is an open-source project that provides a comprehensiv
 
 With the Platform Turborepo, developers and enthusiasts have access to a wide range of front-end and back-end applications, along with essential packages for programming, data modeling, and UI component development. The Turborepo follows a monorepo architecture, enabling seamless collaboration and code sharing between different parts of the project.
 
-# Documentation
-
-Before diving into the installation process, we highly recommend visiting the [Thymio Platform Documentation](https://mobsya.github.io/thymio-platform/?path=/docs/introduction--page). This comprehensive documentation will provide you with detailed information about the XXX-NAME-XXX , its features, and how to utilize its capabilities effectively.
-
-
 # Getting Started with XXX-NAME-XXX  Turborepo
 
 <br />
