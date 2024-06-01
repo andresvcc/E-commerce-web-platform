@@ -9,7 +9,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "clean": "turbo run clean && rm -rf node_modules && rm -rf docpage",
-    "build": "turbo run build --filter=./packages/helpers --force && turbo run build --filter=./packages/data-model --force && turbo run build --filter=!./front-web/* --force && turbo run build --filter=./front-web/* --force",
+    "build": "turbo run build --filter=./packages/helpers --force && turbo run build --filter=./packages/data-model --force && turbo run build --filter=!./apps/* --force && turbo run build --filter=./apps/* --force",
     "test": "turbo run test --filter=!./backend/*",
     "posttest": "yarn mergeTest && yarn report",
     "mergeTest": "npx junit-merge -d packages --recursive -o documentation/documents/test-results/merged-results.xml --createDir=true && cd ./documentation/documents/ && node mdxParser.mjs",
@@ -45,7 +45,7 @@
     }
   },
   "workspaces": [
-    "front-web/*",
+    "apps/*",
     "packages/*",
     "documentation/*",
     "backend/*"
