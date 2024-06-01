@@ -7,6 +7,10 @@ The XXX-NAME-XXX Platform is an open-source project that provides a comprehensiv
 
 With the Platform Turborepo, developers and enthusiasts have access to a wide range of front-end and back-end applications, along with essential packages for programming, data modeling, and UI component development. The Turborepo follows a monorepo architecture, enabling seamless collaboration and code sharing between different parts of the project.
 
+## Documentation
+
+To access the documentation of the project, please visit the following link: [XXX-NAME-XXX Platform Documentation](https://andresvcc.github.io/E-commerce-web-platform/?path=/docs/getting-started--page)
+
 # Getting Started with XXX-NAME-XXX  Turborepo
 
 <br />
