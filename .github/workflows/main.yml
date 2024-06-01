@@ -49,14 +49,23 @@ jobs:
             target-folder: docs
             clean: true
 
-        - name: List output files
+        - name: List output admin files
           run: ls front-web/web-admin/dist
+        
+        - name: List output shop files
+          run: ls front-web/web-shop/dist
 
-        - name: Archive Production Artifact
+        - name: Archive Production admin Artifact
           uses: actions/upload-artifact@v2
           with:
             name: web-admin
             path: front-web/web-admin/dist
+
+        - name: Archive Production shop Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: web-shop
+            path: front-web/web-shop/dist
 
   release:
     needs: build
@@ -69,13 +78,23 @@ jobs:
         with:
           name: web-admin
 
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: web-shop
+
       - name: List files
         run: ls -R
 
-      - name: Compress Artifact
+      - name: Compress admin Artifact
         run: |
           zip -r web-admin.zip index.html
           zip -r web-admin.zip assets
+
+      - name: Compress shop Artifact
+        run: |
+          zip -r web-shop.zip index.html
+          zip -r web-shop.zip assets
       
       - name: Bump version and push tag
         id: tag_version
@@ -103,4 +122,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./web-admin.zip
           asset_name: web-admin.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./web-shop.zip
+          asset_name: web-shop.zip
           asset_content_type: application/zip
